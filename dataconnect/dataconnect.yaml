@@ -1,0 +1,13 @@
+specVersion: "v1"
+serviceId: "agri-ai-saas-service"
+location: "asia-northeast1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "agri-ai-saas-database"
+      cloudSql:
+        instanceId: "agri-ai-saas-instance"
+        # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
+        # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
+connectorDirs: ["./example"]
