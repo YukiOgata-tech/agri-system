@@ -1,4 +1,3 @@
-// src/lib/firebase.ts
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
@@ -12,17 +11,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Next.js特有のエラーを防ぐため
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// Analyticsはブラウザ環境(windowがある時)のみ初期化
-let analytics;
 if (typeof window !== "undefined") {
   isSupported().then((supported) => {
-    if (supported) {
-      analytics = getAnalytics(app);
-    }
+    if (supported) getAnalytics(app);
   });
 }
-
-export { app, analytics };

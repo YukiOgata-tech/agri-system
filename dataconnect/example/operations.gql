@@ -1,0 +1,564 @@
+# =============================================================
+# Agri-System Connector Operations
+# =============================================================
+
+# ==================== Queries ====================
+
+query GetFarmsByOrg($organizationId: UUID!) @auth(level: USER) {
+  farms(where: { organization: { id: { eq: $organizationId } } }, orderBy: [{ createdAt: ASC }]) {
+    id
+    name
+    prefecture
+    city
+    notes
+  }
+}
+
+query GetGreenhousesByFarm($farmId: UUID!) @auth(level: USER) {
+  greenhouses(where: { farm: { id: { eq: $farmId } }, isActive: { eq: true } }, orderBy: [{ name: ASC }]) {
+    id
+    code
+    name
+    greenhouseType
+    areaM2
+    isActive
+    notes
+  }
+}
+
+query GetCultivationCycles($greenhouseId: UUID!) @auth(level: USER) {
+  cultivationCycles(
+    where: { greenhouse: { id: { eq: $greenhouseId } } }
+    orderBy: [{ startDate: DESC }]
+  ) {
+    id
+    cycleName
+    startDate
+    endDate
+    plantingDate
+    status
+    cropType { id nameJa }
+    cropVariety { id name }
+  }
+}
+
+query GetHarvestRecords($greenhouseId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
+  harvestRecords(
+    where: {
+      greenhouse: { id: { eq: $greenhouseId } }
+      harvestDate: { ge: $from, le: $to }
+    }
+    orderBy: [{ harvestDate: DESC }]
+  ) {
+    id
+    harvestDate
+    quantityKg
+    quantityCount
+    gradeAKg
+    gradeBKg
+    gradeCKg
+    wasteKg
+    averageUnitWeightG
+    notes
+    cultivationCycle { id cycleName }
+    recordedBy { id displayName }
+  }
+}
+
+query GetWorkLogs($greenhouseId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
+  workLogs(
+    where: {
+      greenhouse: { id: { eq: $greenhouseId } }
+      workDate: { ge: $from, le: $to }
+    }
+    orderBy: [{ workDate: DESC }]
+  ) {
+    id
+    workDate
+    workType
+    durationMinutes
+    workerCount
+    status
+    note
+    operator { id displayName }
+    irrigationLog { id waterVolumeL method timingType }
+    fertilizationLog { id fertilizerName amountKg applicationMethod }
+    pesticideLog { id pesticideName targetPestOrDisease amount unit }
+  }
+}
+
+query GetEnvironmentLogs($greenhouseId: UUID!, $from: Timestamp!, $to: Timestamp!) @auth(level: USER) {
+  greenhouseEnvironmentLogs(
+    where: {
+      greenhouse: { id: { eq: $greenhouseId } }
+      observedAt: { ge: $from, le: $to }
+    }
+    orderBy: [{ observedAt: DESC }]
+  ) {
+    id
+    observedAt
+    temperatureC
+    humidityPct
+    co2Ppm
+    soilTemperatureC
+    soilMoisturePct
+    lightLux
+    sourceType
+    notes
+  }
+}
+
+query GetDiseasePestIncidents($greenhouseId: UUID!) @auth(level: USER) {
+  diseasePestIncidents(
+    where: { greenhouse: { id: { eq: $greenhouseId } } }
+    orderBy: [{ occurredOn: DESC }]
+  ) {
+    id
+    occurredOn
+    category
+    name
+    severityLevel
+    affectedAreaRatio
+    actionTaken
+    resolvedOn
+    note
+  }
+}
+
+query GetCropTypes @auth(level: PUBLIC) {
+  cropTypes(orderBy: [{ nameJa: ASC }]) {
+    id
+    code
+    nameJa
+    nameEn
+    cultivationCategory
+  }
+}
+
+query GetCropVarieties($cropTypeId: UUID!) @auth(level: PUBLIC) {
+  cropVarieties(where: { cropType: { id: { eq: $cropTypeId } } }) {
+    id
+    name
+    producer
+    characteristics
+  }
+}
+
+query GetDailyReports($greenhouseId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
+  dailyHouseReports(
+    where: {
+      greenhouse: { id: { eq: $greenhouseId } }
+      reportDate: { ge: $from, le: $to }
+    }
+    orderBy: [{ reportDate: DESC }]
+  ) {
+    id
+    reportDate
+    generalCondition
+    issuesSummary
+    freeNote
+    worker { id displayName }
+  }
+}
+
+query GetHarvestSummary($greenhouseId: UUID!, $cycleId: UUID!) @auth(level: USER) {
+  harvestRecords(
+    where: {
+      greenhouse: { id: { eq: $greenhouseId } }
+      cultivationCycle: { id: { eq: $cycleId } }
+    }
+    orderBy: [{ harvestDate: ASC }]
+  ) {
+    id
+    harvestDate
+    quantityKg
+    gradeAKg
+    gradeBKg
+    gradeCKg
+    wasteKg
+  }
+}
+
+query GetStrawberryGrowthLogs($greenhouseId: UUID!, $cycleId: UUID!) @auth(level: USER) {
+  strawberryGrowthLogs(
+    where: {
+      greenhouse: { id: { eq: $greenhouseId } }
+      cultivationCycle: { id: { eq: $cycleId } }
+    }
+    orderBy: [{ observedOn: DESC }]
+  ) {
+    id
+    observedOn
+    flowerCount
+    fruitSetCount
+    malformedFruitCount
+    grayMoldRiskScore
+    note
+  }
+}
+
+# ==================== Mutations ====================
+
+mutation CreateUser($authUid: String!, $email: String!, $displayName: String) @auth(level: USER) {
+  user_insert(data: {
+    authUid: $authUid
+    email: $email
+    displayName: $displayName
+  })
+}
+
+mutation UpsertUser($authUid: String!, $email: String!, $displayName: String) @auth(level: USER) {
+  user_upsert(data: {
+    authUid: $authUid
+    email: $email
+    displayName: $displayName
+  })
+}
+
+mutation CreateOrganization(
+  $name: String!
+  $organizationType: String
+  $ownerUserId: UUID!
+  $prefecture: String
+  $city: String
+) @auth(level: USER) {
+  organization_insert(data: {
+    name: $name
+    organizationType: $organizationType
+    ownerId: $ownerUserId
+    prefecture: $prefecture
+    city: $city
+  })
+}
+
+mutation CreateFarm(
+  $organizationId: UUID!
+  $name: String!
+  $prefecture: String
+  $city: String
+  $notes: String
+) @auth(level: USER) {
+  farm_insert(data: {
+    organizationId: $organizationId
+    name: $name
+    prefecture: $prefecture
+    city: $city
+    notes: $notes
+  })
+}
+
+mutation CreateGreenhouse(
+  $farmId: UUID!
+  $name: String!
+  $code: String
+  $greenhouseType: String
+  $areaM2: Float
+  $notes: String
+) @auth(level: USER) {
+  greenhouse_insert(data: {
+    farmId: $farmId
+    name: $name
+    code: $code
+    greenhouseType: $greenhouseType
+    areaM2: $areaM2
+    notes: $notes
+    isActive: true
+  })
+}
+
+mutation UpdateGreenhouse(
+  $id: UUID!
+  $name: String
+  $code: String
+  $areaM2: Float
+  $notes: String
+  $isActive: Boolean
+) @auth(level: USER) {
+  greenhouse_update(id: $id, data: {
+    name: $name
+    code: $code
+    areaM2: $areaM2
+    notes: $notes
+    isActive: $isActive
+  })
+}
+
+mutation CreateCultivationCycle(
+  $greenhouseId: UUID!
+  $cropTypeId: UUID!
+  $cropVarietyId: UUID
+  $cycleName: String!
+  $startDate: Date!
+  $plantingDate: Date
+  $expectedHarvestStartDate: Date
+  $expectedHarvestEndDate: Date
+  $notes: String
+) @auth(level: USER) {
+  cultivationCycle_insert(data: {
+    greenhouseId: $greenhouseId
+    cropTypeId: $cropTypeId
+    cropVarietyId: $cropVarietyId
+    cycleName: $cycleName
+    startDate: $startDate
+    plantingDate: $plantingDate
+    expectedHarvestStartDate: $expectedHarvestStartDate
+    expectedHarvestEndDate: $expectedHarvestEndDate
+    status: "active"
+    notes: $notes
+  })
+}
+
+mutation CreateHarvestRecord(
+  $greenhouseId: UUID!
+  $cultivationCycleId: UUID
+  $harvestDate: Date!
+  $quantityKg: Float
+  $quantityCount: Int
+  $gradeAKg: Float
+  $gradeBKg: Float
+  $gradeCKg: Float
+  $wasteKg: Float
+  $averageUnitWeightG: Float
+  $recordedByUserId: UUID
+  $notes: String
+) @auth(level: USER) {
+  harvestRecord_insert(data: {
+    greenhouseId: $greenhouseId
+    cultivationCycleId: $cultivationCycleId
+    harvestDate: $harvestDate
+    quantityKg: $quantityKg
+    quantityCount: $quantityCount
+    gradeAKg: $gradeAKg
+    gradeBKg: $gradeBKg
+    gradeCKg: $gradeCKg
+    wasteKg: $wasteKg
+    averageUnitWeightG: $averageUnitWeightG
+    recordedByUserId: $recordedByUserId
+    notes: $notes
+  })
+}
+
+mutation UpdateHarvestRecord(
+  $id: UUID!
+  $quantityKg: Float
+  $quantityCount: Int
+  $gradeAKg: Float
+  $gradeBKg: Float
+  $gradeCKg: Float
+  $wasteKg: Float
+  $averageUnitWeightG: Float
+  $notes: String
+) @auth(level: USER) {
+  harvestRecord_update(id: $id, data: {
+    quantityKg: $quantityKg
+    quantityCount: $quantityCount
+    gradeAKg: $gradeAKg
+    gradeBKg: $gradeBKg
+    gradeCKg: $gradeCKg
+    wasteKg: $wasteKg
+    averageUnitWeightG: $averageUnitWeightG
+    notes: $notes
+  })
+}
+
+mutation DeleteHarvestRecord($id: UUID!) @auth(level: USER) {
+  harvestRecord_delete(id: $id)
+}
+
+mutation CreateWorkLog(
+  $greenhouseId: UUID!
+  $cultivationCycleId: UUID
+  $workDate: Date!
+  $workType: String!
+  $durationMinutes: Int
+  $workerCount: Int
+  $operatorUserId: UUID
+  $note: String
+) @auth(level: USER) {
+  workLog_insert(data: {
+    greenhouseId: $greenhouseId
+    cultivationCycleId: $cultivationCycleId
+    workDate: $workDate
+    workType: $workType
+    durationMinutes: $durationMinutes
+    workerCount: $workerCount
+    operatorUserId: $operatorUserId
+    note: $note
+    status: "completed"
+  })
+}
+
+mutation CreateIrrigationLog(
+  $workLogId: UUID!
+  $waterVolumeL: Float
+  $durationMinutes: Int
+  $method: String
+  $timingType: String
+  $notes: String
+) @auth(level: USER) {
+  irrigationLog_insert(data: {
+    workLogId: $workLogId
+    waterVolumeL: $waterVolumeL
+    durationMinutes: $durationMinutes
+    method: $method
+    timingType: $timingType
+    notes: $notes
+  })
+}
+
+mutation CreateFertilizationLog(
+  $workLogId: UUID!
+  $fertilizerName: String
+  $amountKg: Float
+  $amountL: Float
+  $nitrogenN: Float
+  $phosphorusP: Float
+  $potassiumK: Float
+  $applicationMethod: String
+  $notes: String
+) @auth(level: USER) {
+  fertilizationLog_insert(data: {
+    workLogId: $workLogId
+    fertilizerName: $fertilizerName
+    amountKg: $amountKg
+    amountL: $amountL
+    nitrogenN: $nitrogenN
+    phosphorusP: $phosphorusP
+    potassiumK: $potassiumK
+    applicationMethod: $applicationMethod
+    notes: $notes
+  })
+}
+
+mutation CreatePesticideLog(
+  $workLogId: UUID!
+  $pesticideName: String
+  $activeIngredient: String
+  $targetPestOrDisease: String
+  $amount: Float
+  $unit: String
+  $dilutionRatio: String
+  $applicationMethod: String
+  $preharvestIntervalDays: Int
+  $notes: String
+) @auth(level: USER) {
+  pesticideLog_insert(data: {
+    workLogId: $workLogId
+    pesticideName: $pesticideName
+    activeIngredient: $activeIngredient
+    targetPestOrDisease: $targetPestOrDisease
+    amount: $amount
+    unit: $unit
+    dilutionRatio: $dilutionRatio
+    applicationMethod: $applicationMethod
+    preharvestIntervalDays: $preharvestIntervalDays
+    notes: $notes
+  })
+}
+
+mutation CreateEnvironmentLog(
+  $greenhouseId: UUID!
+  $observedAt: Timestamp!
+  $temperatureC: Float
+  $humidityPct: Float
+  $co2Ppm: Float
+  $soilTemperatureC: Float
+  $soilMoisturePct: Float
+  $lightLux: Float
+  $recordedByUserId: UUID
+  $notes: String
+) @auth(level: USER) {
+  greenhouseEnvironmentLog_insert(data: {
+    greenhouseId: $greenhouseId
+    observedAt: $observedAt
+    temperatureC: $temperatureC
+    humidityPct: $humidityPct
+    co2Ppm: $co2Ppm
+    soilTemperatureC: $soilTemperatureC
+    soilMoisturePct: $soilMoisturePct
+    lightLux: $lightLux
+    recordedByUserId: $recordedByUserId
+    notes: $notes
+  })
+}
+
+mutation CreateDiseasePestIncident(
+  $greenhouseId: UUID!
+  $cultivationCycleId: UUID
+  $occurredOn: Date!
+  $category: String!
+  $name: String!
+  $severityLevel: Int
+  $affectedAreaRatio: Float
+  $actionTaken: String
+  $note: String
+) @auth(level: USER) {
+  diseasePestIncident_insert(data: {
+    greenhouseId: $greenhouseId
+    cultivationCycleId: $cultivationCycleId
+    occurredOn: $occurredOn
+    category: $category
+    name: $name
+    severityLevel: $severityLevel
+    affectedAreaRatio: $affectedAreaRatio
+    actionTaken: $actionTaken
+    note: $note
+  })
+}
+
+mutation UpdateDiseasePestIncident(
+  $id: UUID!
+  $actionTaken: String
+  $resolvedOn: Date
+  $note: String
+) @auth(level: USER) {
+  diseasePestIncident_update(id: $id, data: {
+    actionTaken: $actionTaken
+    resolvedOn: $resolvedOn
+    note: $note
+  })
+}
+
+mutation CreateDailyReport(
+  $greenhouseId: UUID!
+  $cultivationCycleId: UUID
+  $reportDate: Date!
+  $workerUserId: UUID
+  $generalCondition: String
+  $issuesSummary: String
+  $freeNote: String
+) @auth(level: USER) {
+  dailyHouseReport_insert(data: {
+    greenhouseId: $greenhouseId
+    cultivationCycleId: $cultivationCycleId
+    reportDate: $reportDate
+    workerUserId: $workerUserId
+    generalCondition: $generalCondition
+    issuesSummary: $issuesSummary
+    freeNote: $freeNote
+  })
+}
+
+mutation CreateStrawberryGrowthLog(
+  $greenhouseId: UUID!
+  $cultivationCycleId: UUID
+  $observedOn: Date!
+  $flowerCount: Int
+  $fruitSetCount: Int
+  $malformedFruitCount: Int
+  $grayMoldRiskScore: Int
+  $note: String
+  $recordedByUserId: UUID
+) @auth(level: USER) {
+  strawberryGrowthLog_insert(data: {
+    greenhouseId: $greenhouseId
+    cultivationCycleId: $cultivationCycleId
+    observedOn: $observedOn
+    flowerCount: $flowerCount
+    fruitSetCount: $fruitSetCount
+    malformedFruitCount: $malformedFruitCount
+    grayMoldRiskScore: $grayMoldRiskScore
+    note: $note
+    recordedByUserId: $recordedByUserId
+  })
+}
