@@ -4,15 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  Wheat,
+  Sprout,
   ClipboardList,
   Thermometer,
   Bug,
   Package,
   Settings,
   LogOut,
-  ChevronDown,
   Home,
+  Wheat,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -50,11 +50,11 @@ export function Sidebar() {
       {/* ロゴ */}
       <div className="flex h-16 items-center gap-3 border-b border-border px-6">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-          <Wheat className="h-5 w-5 text-primary-foreground" />
+          <Sprout className="h-5 w-5 text-primary-foreground" />
         </div>
         <div>
-          <p className="text-sm font-bold text-foreground">AgriSystem</p>
-          <p className="text-xs text-muted-foreground">農場管理システム</p>
+          <p className="text-sm font-bold text-foreground">FarmUp</p>
+          <p className="text-xs text-muted-foreground">農業ナビ</p>
         </div>
       </div>
 

@@ -9,8 +9,8 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AgriSystem - 農場管理システム",
-  description: "農場の記録・分析・管理を一元化するシステム",
+  title: "FarmUp -農業ナビ-",
+  description: "農場の記録・分析・管理を一元化する農業ナビゲーションサービス",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

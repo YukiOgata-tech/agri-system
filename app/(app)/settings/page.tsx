@@ -64,7 +64,7 @@ export default function SettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Firebase Data Connect</CardTitle>
+          <CardTitle className="text-base">データベース接続 (Firebase Data Connect)</CardTitle>
           <CardDescription>データベース接続状態</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">

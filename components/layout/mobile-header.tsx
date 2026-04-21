@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, Wheat, X } from "lucide-react";
+import { Menu, Sprout, X } from "lucide-react";
 import { Sidebar } from "./sidebar";
 
 export function MobileHeader() {
@@ -15,9 +15,9 @@ export function MobileHeader() {
         </button>
         <div className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-            <Wheat className="h-4 w-4 text-primary-foreground" />
+            <Sprout className="h-4 w-4 text-primary-foreground" />
           </div>
-          <span className="font-bold text-sm">AgriSystem</span>
+          <span className="font-bold text-sm">FarmUp</span>
         </div>
       </header>
 
