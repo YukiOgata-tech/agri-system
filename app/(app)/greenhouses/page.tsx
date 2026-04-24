@@ -1,234 +1,258 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Home, MoreVertical, Edit2, Power } from "lucide-react";
+import { Layers3, Map, MoreVertical, Plus, Power } from "lucide-react";
 import { toast } from "sonner";
-import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, type Resolver } from "react-hook-form";
 import { z } from "zod";
+import { PageIntro } from "@/components/app/page-intro";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Textarea } from "@/components/ui/textarea";
+import { useAgriApp } from "@/components/providers/agri-app-provider";
+import { getCropLabel, getProductionUnitTypeLabel } from "@/lib/agri-mock-data";
 
-const ghSchema = z.object({
+const unitSchema = z.object({
+  farmName: z.string().min(1, "農場名を入力してください"),
+  parentUnitId: z.string().optional(),
+  unitType: z.enum(["greenhouse", "open_field", "plot", "bed", "nursery_area"]),
+  code: z.string().min(1, "コードを入力してください"),
   name: z.string().min(1, "名称を入力してください"),
-  code: z.string().optional(),
-  greenhouseType: z.string().optional(),
-  areaM2: z.coerce.number().min(0).optional(),
-  lengthM: z.coerce.number().min(0).optional(),
-  widthM: z.coerce.number().min(0).optional(),
-  coveringMaterial: z.string().optional(),
-  irrigationSystemType: z.string().optional(),
+  areaM2: z.coerce.number().min(1, "面積を入力してください"),
   notes: z.string().optional(),
 });
-type GhForm = z.infer<typeof ghSchema>;
 
-type Greenhouse = {
-  id: string;
-  name: string;
-  code: string;
-  greenhouseType: string;
-  areaM2: number;
-  coveringMaterial: string;
-  irrigationSystemType: string;
-  isActive: boolean;
-  notes: string;
-  cropName?: string;
-};
+type UnitForm = z.infer<typeof unitSchema>;
 
-const mockGreenhouses: Greenhouse[] = [
-  { id: "gh-a", name: "A棟", code: "A", greenhouseType: "鉄骨ハウス", areaM2: 1200, coveringMaterial: "フッ素フィルム", irrigationSystemType: "点滴潅水", isActive: true, notes: "主力ハウス", cropName: "さちのか" },
-  { id: "gh-b", name: "B棟", code: "B", greenhouseType: "鉄骨ハウス", areaM2: 1000, coveringMaterial: "フッ素フィルム", irrigationSystemType: "点滴潅水", isActive: true, notes: "", cropName: "紅ほっぺ" },
-  { id: "gh-c", name: "C棟", code: "C", greenhouseType: "パイプハウス", areaM2: 800, coveringMaterial: "塩ビフィルム", irrigationSystemType: "頭上散水", isActive: true, notes: "", cropName: "章姫" },
-  { id: "gh-d", name: "D棟", code: "D", greenhouseType: "パイプハウス", areaM2: 600, coveringMaterial: "塩ビフィルム", irrigationSystemType: "手潅水", isActive: false, notes: "改修予定", cropName: undefined },
-];
-
-export default function GreenhousesPage() {
-  const [greenhouses, setGreenhouses] = useState<Greenhouse[]>(mockGreenhouses);
+export default function ProductionUnitsPage() {
+  const {
+    selectedCropId,
+    productionUnits,
+    cultivationCycles,
+    addProductionUnit,
+    toggleProductionUnitActive,
+    matchesSelectedCrop,
+    getUnitById,
+  } = useAgriApp();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [typeFilter, setTypeFilter] = useState("all");
+  const form = useForm<UnitForm>({
+    resolver: zodResolver(unitSchema) as Resolver<UnitForm>,
+    defaultValues: { farmName: "静岡本園", unitType: "greenhouse" },
+  });
 
-  const form = useForm<GhForm>({ resolver: zodResolver(ghSchema) as Resolver<GhForm> });
+  const filteredUnits = productionUnits.filter((unit) => {
+    const cycleMatch =
+      selectedCropId === "all" ||
+      cultivationCycles.some(
+        (cycle) => cycle.productionUnitId === unit.id && matchesSelectedCrop(cycle.cropTypeId)
+      );
+    const typeMatch = typeFilter === "all" || unit.unitType === typeFilter;
+    return cycleMatch && typeMatch;
+  });
 
-  const onSubmit = (data: GhForm) => {
-    const newGh: Greenhouse = {
-      id: Date.now().toString(),
-      name: data.name,
-      code: data.code ?? "",
-      greenhouseType: data.greenhouseType ?? "",
-      areaM2: data.areaM2 ?? 0,
-      coveringMaterial: data.coveringMaterial ?? "",
-      irrigationSystemType: data.irrigationSystemType ?? "",
-      isActive: true,
-      notes: data.notes ?? "",
-    };
-    setGreenhouses((prev) => [...prev, newGh]);
-    toast.success("ハウスを登録しました");
+  const onSubmit = (values: UnitForm) => {
+    addProductionUnit(values);
+    toast.success("生産単位を追加しました");
     setDialogOpen(false);
-    form.reset();
-  };
-
-  const toggleActive = (id: string) => {
-    setGreenhouses((prev) => prev.map((g) => (g.id === id ? { ...g, isActive: !g.isActive } : g)));
-    toast.success("ステータスを更新しました");
+    form.reset({ farmName: values.farmName, unitType: values.unitType });
   };
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">ハウス管理</h1>
-          <p className="text-sm text-muted-foreground mt-1">栽培ハウスの情報を管理</p>
-        </div>
-        <Button size="sm" onClick={() => setDialogOpen(true)}>
-          <Plus className="h-4 w-4 mr-1.5" />
-          ハウス追加
-        </Button>
-      </div>
+      <PageIntro
+        eyebrow="Production Units"
+        title="生産単位管理"
+        description="ハウス、露地、区画、ベッドを同じ土台で管理します。作物切替に応じて関連する単位だけを絞り込めます。"
+        scopeLabel={getCropLabel(selectedCropId)}
+        actions={
+          <>
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger className="w-40">
+                <SelectValue placeholder="タイプ" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">すべて</SelectItem>
+                <SelectItem value="greenhouse">ハウス</SelectItem>
+                <SelectItem value="open_field">露地圃場</SelectItem>
+                <SelectItem value="plot">区画</SelectItem>
+                <SelectItem value="bed">ベッド</SelectItem>
+                <SelectItem value="nursery_area">育苗</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={() => setDialogOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              生産単位を追加
+            </Button>
+          </>
+        }
+      />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {greenhouses.map((gh) => (
-          <Card key={gh.id} className={!gh.isActive ? "opacity-60" : ""}>
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${gh.isActive ? "bg-primary/10" : "bg-muted"}`}>
-                    <Home className={`h-5 w-5 ${gh.isActive ? "text-primary" : "text-muted-foreground"}`} />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {filteredUnits.map((unit) => {
+          const cycle = cultivationCycles.find(
+            (item) => item.productionUnitId === unit.id && item.status === "active"
+          );
+          const parent = unit.parentUnitId ? getUnitById(unit.parentUnitId) : undefined;
+          return (
+            <Card key={unit.id}>
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
+                      {unit.unitType === "greenhouse" ? (
+                        <Layers3 className="h-5 w-5 text-primary" />
+                      ) : (
+                        <Map className="h-5 w-5 text-primary" />
+                      )}
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <CardTitle className="text-base">{unit.name}</CardTitle>
+                        <Badge variant={unit.isActive ? "success" : "secondary"}>
+                          {unit.isActive ? "稼働中" : "停止中"}
+                        </Badge>
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {unit.farmName} · {getProductionUnitTypeLabel(unit.unitType)}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="text-base">{gh.name}</CardTitle>
-                    {gh.code && <CardDescription className="text-xs">コード: {gh.code}</CardDescription>}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant={gh.isActive ? "success" : "secondary"}>{gh.isActive ? "稼働中" : "停止"}</Badge>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="rounded-md p-1 text-muted-foreground hover:bg-muted transition-colors">
+                      <button className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent">
                         <MoreVertical className="h-4 w-4" />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        <Edit2 className="h-4 w-4 mr-2" />
-                        編集
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => toggleActive(gh.id)}>
-                        <Power className="h-4 w-4 mr-2" />
-                        {gh.isActive ? "停止" : "再稼働"}
+                      <DropdownMenuItem onClick={() => toggleProductionUnitActive(unit.id)}>
+                        <Power className="mr-2 h-4 w-4" />
+                        {unit.isActive ? "停止にする" : "再稼働にする"}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col gap-2 text-sm">
-                {gh.cropName && (
-                  <div className="flex items-center gap-2 rounded-lg bg-primary/5 px-3 py-2">
-                    <span className="text-xs text-muted-foreground">栽培品種:</span>
-                    <span className="font-medium text-primary">{gh.cropName}</span>
-                  </div>
-                )}
-                <div className="grid grid-cols-2 gap-1.5 text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">タイプ</span>
-                    <span>{gh.greenhouseType || "-"}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">面積</span>
-                    <span>{gh.areaM2 > 0 ? `${gh.areaM2} m²` : "-"}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">被覆資材</span>
-                    <span>{gh.coveringMaterial || "-"}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">潅水方法</span>
-                    <span>{gh.irrigationSystemType || "-"}</span>
-                  </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <span className="text-muted-foreground">コード</span>
+                  <span className="text-right font-medium">{unit.code}</span>
+                  <span className="text-muted-foreground">面積</span>
+                  <span className="text-right font-medium">{unit.areaM2.toLocaleString()} m²</span>
+                  <span className="text-muted-foreground">親単位</span>
+                  <span className="text-right font-medium">{parent?.name ?? "-"}</span>
+                  <span className="text-muted-foreground">潅水</span>
+                  <span className="text-right font-medium">{unit.irrigationSystemType ?? "-"}</span>
                 </div>
-                {gh.notes && <p className="text-xs text-muted-foreground border-t border-border pt-2 mt-1">{gh.notes}</p>}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+
+                <div className="rounded-lg border bg-muted/30 p-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                    Current Cycle
+                  </p>
+                  {cycle ? (
+                    <div className="mt-2 space-y-1">
+                      <p className="font-semibold">{cycle.cycleName}</p>
+                      <p className="text-sm text-muted-foreground">{cycle.varietyName}</p>
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        <Badge variant="outline">{cycle.primaryRecordUnit}</Badge>
+                        <Badge variant="outline">{cycle.shipmentUnit}</Badge>
+                        <Badge variant="outline">{cycle.plantedCount.toLocaleString()} 株</Badge>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">現在の作付は未登録です。</p>
+                  )}
+                </div>
+
+                {unit.notes ? <p className="text-sm text-muted-foreground">{unit.notes}</p> : null}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
-      {/* 追加ダイアログ */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>ハウスの追加</DialogTitle>
+            <DialogTitle>生産単位の追加</DialogTitle>
           </DialogHeader>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4 pt-2">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="ghName">ハウス名 *</Label>
-                <Input id="ghName" placeholder="A棟" {...form.register("name")} />
-                {form.formState.errors.name && <p className="text-xs text-destructive">{form.formState.errors.name.message}</p>}
+          <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-1.5">
+                <Label htmlFor="farmName">農場</Label>
+                <Input id="farmName" {...form.register("farmName")} />
               </div>
-              <div className="flex flex-col gap-1.5">
+              <div className="grid gap-1.5">
+                <Label>タイプ</Label>
+                <Select
+                  defaultValue={form.getValues("unitType")}
+                  onValueChange={(value) => form.setValue("unitType", value as UnitForm["unitType"])}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="greenhouse">ハウス</SelectItem>
+                    <SelectItem value="open_field">露地圃場</SelectItem>
+                    <SelectItem value="plot">区画</SelectItem>
+                    <SelectItem value="bed">ベッド</SelectItem>
+                    <SelectItem value="nursery_area">育苗</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-1.5">
                 <Label htmlFor="code">コード</Label>
-                <Input id="code" placeholder="A" {...form.register("code")} />
+                <Input id="code" placeholder="GH-D" {...form.register("code")} />
+              </div>
+              <div className="grid gap-1.5">
+                <Label htmlFor="name">名称</Label>
+                <Input id="name" placeholder="D棟" {...form.register("name")} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <Label>ハウスタイプ</Label>
-                <Select onValueChange={(v) => form.setValue("greenhouseType", v)}>
-                  <SelectTrigger><SelectValue placeholder="選択..." /></SelectTrigger>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-1.5">
+                <Label>親単位</Label>
+                <Select onValueChange={(value) => form.setValue("parentUnitId", value === "none" ? "" : value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="なし" />
+                  </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="鉄骨ハウス">鉄骨ハウス</SelectItem>
-                    <SelectItem value="パイプハウス">パイプハウス</SelectItem>
-                    <SelectItem value="ガラス温室">ガラス温室</SelectItem>
-                    <SelectItem value="露地">露地</SelectItem>
+                    <SelectItem value="none">なし</SelectItem>
+                    {productionUnits.map((unit) => (
+                      <SelectItem key={unit.id} value={unit.id}>
+                        {unit.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
-              <div className="flex flex-col gap-1.5">
+              <div className="grid gap-1.5">
                 <Label htmlFor="areaM2">面積 (m²)</Label>
-                <Input id="areaM2" type="number" placeholder="1000" {...form.register("areaM2")} />
+                <Input id="areaM2" type="number" {...form.register("areaM2")} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1.5">
-                <Label>被覆資材</Label>
-                <Select onValueChange={(v) => form.setValue("coveringMaterial", v)}>
-                  <SelectTrigger><SelectValue placeholder="選択..." /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="フッ素フィルム">フッ素フィルム</SelectItem>
-                    <SelectItem value="塩ビフィルム">塩ビフィルム</SelectItem>
-                    <SelectItem value="PE フィルム">PE フィルム</SelectItem>
-                    <SelectItem value="ガラス">ガラス</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label>潅水システム</Label>
-                <Select onValueChange={(v) => form.setValue("irrigationSystemType", v)}>
-                  <SelectTrigger><SelectValue placeholder="選択..." /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="点滴潅水">点滴潅水</SelectItem>
-                    <SelectItem value="頭上散水">頭上散水</SelectItem>
-                    <SelectItem value="手潅水">手潅水</SelectItem>
-                    <SelectItem value="その他">その他</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+
+            <div className="grid gap-1.5">
+              <Label htmlFor="notes">備考</Label>
+              <Textarea id="notes" rows={3} {...form.register("notes")} />
             </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="ghNotes">備考</Label>
-              <Textarea id="ghNotes" placeholder="特記事項..." rows={2} {...form.register("notes")} />
-            </div>
-            <DialogFooter className="pt-2">
-              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>キャンセル</Button>
-              <Button type="submit">登録する</Button>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
+                キャンセル
+              </Button>
+              <Button type="submit">追加する</Button>
             </DialogFooter>
           </form>
         </DialogContent>

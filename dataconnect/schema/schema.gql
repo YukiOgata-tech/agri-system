@@ -1,18 +1,20 @@
 # =============================================================
 # Agri-System Firebase Data Connect Schema
-# MVP: 農場記録システム（いちご向け、他作物拡張対応）
+# MVP v2: 場所中心のコア構造 + 作物文脈のUI/分析 + 単位系/トレーサビリティ対応
 # =============================================================
 
 # ==================== 1. ユーザー・組織 ====================
 
 type User @table(name: "users") {
   id: UUID! @default(expr: "uuidV4()")
+  authProvider: String @col(name: "auth_provider")
   authUid: String! @col(name: "auth_uid") @unique
   email: String!
   displayName: String @col(name: "display_name")
   phone: String
   avatarUrl: String @col(name: "avatar_url")
   status: String! @default(expr: "'active'")
+  lastLoginAt: Timestamp @col(name: "last_login_at")
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
@@ -22,9 +24,11 @@ type Organization @table(name: "organizations") {
   name: String!
   organizationType: String @col(name: "organization_type")
   owner: User!
+  postalCode: String @col(name: "postal_code")
   prefecture: String
   city: String
   addressLine: String @col(name: "address_line")
+  timezone: String
   status: String! @default(expr: "'active'")
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
@@ -38,42 +42,64 @@ type OrganizationMember @table(name: "organization_members") {
   invitationStatus: String! @col(name: "invitation_status") @default(expr: "'accepted'")
   joinedAt: Timestamp @col(name: "joined_at")
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-# ==================== 2. 農場・ハウス ====================
+type UserPreference @table(name: "user_preferences") {
+  id: UUID! @default(expr: "uuidV4()")
+  user: User!
+  language: String @default(expr: "'ja'")
+  dateFormat: String @col(name: "date_format")
+  notificationEmailEnabled: Boolean! @col(name: "notification_email_enabled") @default(expr: "true")
+  notificationPushEnabled: Boolean! @col(name: "notification_push_enabled") @default(expr: "true")
+  dailyReportDeliveryTime: String @col(name: "daily_report_delivery_time")
+  weeklyReportDeliveryDay: String @col(name: "weekly_report_delivery_day")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+# ==================== 2. 農場・生産単位 ====================
 
 type Farm @table(name: "farms") {
   id: UUID! @default(expr: "uuidV4()")
   organization: Organization!
   name: String!
+  postalCode: String @col(name: "postal_code")
   prefecture: String
   city: String
   addressLine: String @col(name: "address_line")
   latitude: Float
   longitude: Float
+  elevationM: Float @col(name: "elevation_m")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type Greenhouse @table(name: "greenhouses") {
+type ProductionUnit @table(name: "production_units") {
   id: UUID! @default(expr: "uuidV4()")
   farm: Farm!
+  parentUnit: ProductionUnit @col(name: "parent_unit_id")
+  unitType: String! @col(name: "unit_type")
   code: String
   name: String!
-  greenhouseType: String @col(name: "greenhouse_type")
   areaM2: Float @col(name: "area_m2")
   lengthM: Float @col(name: "length_m")
   widthM: Float @col(name: "width_m")
+  heightM: Float @col(name: "height_m")
+  orientation: String
   coveringMaterial: String @col(name: "covering_material")
   irrigationSystemType: String @col(name: "irrigation_system_type")
+  bedCount: Int @col(name: "bed_count")
+  rowCount: Int @col(name: "row_count")
+  plantingLineCount: Int @col(name: "planting_line_count")
   isActive: Boolean! @col(name: "is_active") @default(expr: "true")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-# ==================== 3. 作物マスタ ====================
+# ==================== 3. 作物マスタ・作物別設定 ====================
 
 type CropType @table(name: "crop_types") {
   id: UUID! @default(expr: "uuidV4()")
@@ -81,7 +107,10 @@ type CropType @table(name: "crop_types") {
   nameJa: String! @col(name: "name_ja")
   nameEn: String @col(name: "name_en")
   cultivationCategory: String @col(name: "cultivation_category")
+  defaultYieldUnit: String @col(name: "default_yield_unit")
+  defaultShipmentUnit: String @col(name: "default_shipment_unit")
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
 type CropVariety @table(name: "crop_varieties") {
@@ -91,11 +120,27 @@ type CropVariety @table(name: "crop_varieties") {
   producer: String
   characteristics: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
+
+type OrganizationCropSetting @table(name: "organization_crop_settings") {
+  id: UUID! @default(expr: "uuidV4()")
+  organization: Organization!
+  cropType: CropType!
+  isEnabled: Boolean! @col(name: "is_enabled") @default(expr: "true")
+  aiAnalysisEnabled: Boolean! @col(name: "ai_analysis_enabled") @default(expr: "false")
+  defaultDashboard: Boolean! @col(name: "default_dashboard") @default(expr: "false")
+  pricingTier: String @col(name: "pricing_tier")
+  recordMode: String @col(name: "record_mode")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+# ==================== 4. 作付 ====================
 
 type CultivationCycle @table(name: "cultivation_cycles") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cropType: CropType!
   cropVariety: CropVariety
   cycleName: String! @col(name: "cycle_name")
@@ -105,6 +150,16 @@ type CultivationCycle @table(name: "cultivation_cycles") {
   expectedHarvestStartDate: Date @col(name: "expected_harvest_start_date")
   expectedHarvestEndDate: Date @col(name: "expected_harvest_end_date")
   status: String! @default(expr: "'active'")
+  primaryRecordUnit: String @col(name: "primary_record_unit")
+  secondaryRecordUnit: String @col(name: "secondary_record_unit")
+  shipmentUnit: String @col(name: "shipment_unit")
+  plantedAreaM2: Float @col(name: "planted_area_m2")
+  plantedCount: Int @col(name: "planted_count")
+  rowCount: Int @col(name: "row_count")
+  ridgeCount: Int @col(name: "ridge_count")
+  plantSpacingCm: Float @col(name: "plant_spacing_cm")
+  lineSpacingCm: Float @col(name: "line_spacing_cm")
+  sourceBatchCode: String @col(name: "source_batch_code")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
@@ -118,13 +173,14 @@ type CropStageEvent @table(name: "crop_stage_events") {
   recordedBy: User
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-# ==================== 4. 日次記録 ====================
+# ==================== 5. 日次・収穫・出荷 ====================
 
-type DailyHouseReport @table(name: "daily_house_reports") {
+type DailyProductionReport @table(name: "daily_production_reports") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cultivationCycle: CultivationCycle
   reportDate: Date! @col(name: "report_date")
   worker: User
@@ -137,17 +193,19 @@ type DailyHouseReport @table(name: "daily_house_reports") {
 
 type HarvestRecord @table(name: "harvest_records") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cultivationCycle: CultivationCycle
+  lotCode: String @col(name: "lot_code")
   harvestDate: Date! @col(name: "harvest_date")
-  quantityKg: Float @col(name: "quantity_kg")
-  quantityCount: Int @col(name: "quantity_count")
-  gradeAKg: Float @col(name: "grade_a_kg")
-  gradeBKg: Float @col(name: "grade_b_kg")
-  gradeCKg: Float @col(name: "grade_c_kg")
-  wasteKg: Float @col(name: "waste_kg")
-  averageUnitWeightG: Float @col(name: "average_unit_weight_g")
+  quantityValue: Float @col(name: "quantity_value")
+  quantityUnit: String @col(name: "quantity_unit")
+  normalizedWeightKg: Float @col(name: "normalized_weight_kg")
+  packageCount: Int @col(name: "package_count")
+  packageUnit: String @col(name: "package_unit")
+  qualityGrade: String @col(name: "quality_grade")
+  wasteWeightKg: Float @col(name: "waste_weight_kg")
   recordedBy: User
+  sourceType: String @col(name: "source_type") @default(expr: "'manual'")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
@@ -155,24 +213,30 @@ type HarvestRecord @table(name: "harvest_records") {
 
 type ShipmentRecord @table(name: "shipment_records") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cultivationCycle: CultivationCycle
+  harvestRecord: HarvestRecord
   shipmentDate: Date! @col(name: "shipment_date")
-  shippedKg: Float @col(name: "shipped_kg")
-  shippedCount: Int @col(name: "shipped_count")
+  shipmentLotCode: String @col(name: "shipment_lot_code")
+  quantityValue: Float @col(name: "quantity_value")
+  quantityUnit: String @col(name: "quantity_unit")
+  normalizedWeightKg: Float @col(name: "normalized_weight_kg")
+  packageCount: Int @col(name: "package_count")
+  packageUnit: String @col(name: "package_unit")
   averageUnitPrice: Float @col(name: "average_unit_price")
   revenueAmount: Float @col(name: "revenue_amount")
   destinationName: String @col(name: "destination_name")
+  recordedBy: User
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-# ==================== 5. 作業記録 ====================
+# ==================== 6. 作業・資材・トレーサビリティ ====================
 
 type WorkLog @table(name: "work_logs") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cultivationCycle: CultivationCycle
   workDate: Date! @col(name: "work_date")
   workType: String! @col(name: "work_type")
@@ -182,9 +246,19 @@ type WorkLog @table(name: "work_logs") {
   workerCount: Int @col(name: "worker_count") @default(expr: "1")
   operator: User
   status: String! @default(expr: "'completed'")
+  sourceType: String @col(name: "source_type") @default(expr: "'manual'")
   note: String
+  copiedFromWorkLog: WorkLog @col(name: "copied_from_work_log_id")
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type WorkLogTarget @table(name: "work_log_targets") {
+  id: UUID! @default(expr: "uuidV4()")
+  workLog: WorkLog!
+  productionUnit: ProductionUnit!
+  appliedStatus: String @col(name: "applied_status")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
 }
 
 type IrrigationLog @table(name: "irrigation_logs") {
@@ -200,97 +274,151 @@ type IrrigationLog @table(name: "irrigation_logs") {
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type FertilizationLog @table(name: "fertilization_logs") {
+type InputMaterial @table(name: "input_materials") {
   id: UUID! @default(expr: "uuidV4()")
-  workLog: WorkLog!
-  fertilizerName: String @col(name: "fertilizer_name")
-  amountKg: Float @col(name: "amount_kg")
-  amountL: Float @col(name: "amount_l")
-  nitrogenN: Float @col(name: "nitrogen_n")
-  phosphorusP: Float @col(name: "phosphorus_p")
-  potassiumK: Float @col(name: "potassium_k")
-  applicationMethod: String @col(name: "application_method")
+  organization: Organization!
+  materialType: String! @col(name: "material_type")
+  name: String!
+  manufacturer: String
+  activeIngredient: String @col(name: "active_ingredient")
+  defaultUnit: String @col(name: "default_unit")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type PesticideLog @table(name: "pesticide_logs") {
+type MaterialLot @table(name: "material_lots") {
+  id: UUID! @default(expr: "uuidV4()")
+  organization: Organization!
+  material: InputMaterial!
+  lotCode: String! @col(name: "lot_code")
+  supplierName: String @col(name: "supplier_name")
+  purchasedOn: Date @col(name: "purchased_on")
+  expiresOn: Date @col(name: "expires_on")
+  receivedQuantityValue: Float @col(name: "received_quantity_value")
+  receivedQuantityUnit: String @col(name: "received_quantity_unit")
+  remainingQuantityValue: Float @col(name: "remaining_quantity_value")
+  remainingQuantityUnit: String @col(name: "remaining_quantity_unit")
+  status: String @default(expr: "'active'")
+  notes: String
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type WorkMaterialUsage @table(name: "work_material_usages") {
   id: UUID! @default(expr: "uuidV4()")
   workLog: WorkLog!
-  pesticideName: String @col(name: "pesticide_name")
-  activeIngredient: String @col(name: "active_ingredient")
+  materialLot: MaterialLot!
+  usageQuantityValue: Float @col(name: "usage_quantity_value")
+  usageQuantityUnit: String @col(name: "usage_quantity_unit")
+  normalizedUsageKg: Float @col(name: "normalized_usage_kg")
+  normalizedUsageL: Float @col(name: "normalized_usage_l")
   targetPestOrDisease: String @col(name: "target_pest_or_disease")
-  amount: Float
-  unit: String
   dilutionRatio: String @col(name: "dilution_ratio")
-  applicationMethod: String @col(name: "application_method")
   preharvestIntervalDays: Int @col(name: "preharvest_interval_days")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type LaborLog @table(name: "labor_logs") {
+type InventoryTransaction @table(name: "inventory_transactions") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
-  workLog: WorkLog
-  workDate: Date! @col(name: "work_date")
-  workerCount: Int @col(name: "worker_count")
-  workHours: Float @col(name: "work_hours")
-  laborCostAmount: Float @col(name: "labor_cost_amount")
+  organization: Organization!
+  materialLot: MaterialLot!
+  transactionType: String! @col(name: "transaction_type")
+  quantityValue: Float @col(name: "quantity_value")
+  quantityUnit: String @col(name: "quantity_unit")
+  relatedWorkLog: WorkLog
+  transactionOn: Date! @col(name: "transaction_on")
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
-  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type CostRecord @table(name: "cost_records") {
+# ==================== 7. 環境・病害虫・証跡 ====================
+
+type WeatherLocation @table(name: "weather_locations") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
-  cultivationCycle: CultivationCycle
-  costDate: Date! @col(name: "cost_date")
-  costCategory: String! @col(name: "cost_category")
-  amount: Float!
-  vendorName: String @col(name: "vendor_name")
-  memo: String
+  farm: Farm!
+  name: String!
+  latitude: Float
+  longitude: Float
+  source: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-# ==================== 6. 環境・天候・病害 ====================
-
-type GreenhouseEnvironmentLog @table(name: "greenhouse_environment_logs") {
+type WeatherDaily @table(name: "weather_daily") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  weatherLocation: WeatherLocation!
+  targetDate: Date! @col(name: "target_date")
+  tempMinC: Float @col(name: "temp_min_c")
+  tempMaxC: Float @col(name: "temp_max_c")
+  tempAvgC: Float @col(name: "temp_avg_c")
+  humidityAvgPct: Float @col(name: "humidity_avg_pct")
+  precipitationMm: Float @col(name: "precipitation_mm")
+  solarRadiation: Float @col(name: "solar_radiation")
+  windSpeedAvg: Float @col(name: "wind_speed_avg")
+  weatherCode: String @col(name: "weather_code")
+  sourceName: String @col(name: "source_name")
+  rawJson: String @col(name: "raw_json")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type WeatherForecast @table(name: "weather_forecasts") {
+  id: UUID! @default(expr: "uuidV4()")
+  weatherLocation: WeatherLocation!
+  forecastGeneratedAt: Timestamp! @col(name: "forecast_generated_at")
+  targetDate: Date! @col(name: "target_date")
+  tempMinC: Float @col(name: "temp_min_c")
+  tempMaxC: Float @col(name: "temp_max_c")
+  precipitationMm: Float @col(name: "precipitation_mm")
+  humidityAvgPct: Float @col(name: "humidity_avg_pct")
+  weatherCode: String @col(name: "weather_code")
+  sourceName: String @col(name: "source_name")
+  rawJson: String @col(name: "raw_json")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type ProductionUnitEnvironmentLog @table(name: "production_unit_environment_logs") {
+  id: UUID! @default(expr: "uuidV4()")
+  productionUnit: ProductionUnit!
   observedAt: Timestamp! @col(name: "observed_at")
   temperatureC: Float @col(name: "temperature_c")
   humidityPct: Float @col(name: "humidity_pct")
   co2Ppm: Float @col(name: "co2_ppm")
   soilTemperatureC: Float @col(name: "soil_temperature_c")
   soilMoisturePct: Float @col(name: "soil_moisture_pct")
+  ecDsM: Float @col(name: "ec_ds_m")
+  ph: Float
   lightLux: Float @col(name: "light_lux")
   sourceType: String @col(name: "source_type") @default(expr: "'manual'")
   recordedBy: User
   notes: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type GrowthConditionLog @table(name: "growth_condition_logs") {
+type GrowthObservation @table(name: "growth_observations") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cultivationCycle: CultivationCycle
   observedOn: Date! @col(name: "observed_on")
   vigorScore: Int @col(name: "vigor_score")
   leafColorScore: Int @col(name: "leaf_color_score")
+  floweringScore: Int @col(name: "flowering_score")
+  fruitingScore: Int @col(name: "fruiting_score")
   abnormalFlag: Boolean @col(name: "abnormal_flag") @default(expr: "false")
   comment: String
   recordedBy: User
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
 type DiseasePestIncident @table(name: "disease_pest_incidents") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  productionUnit: ProductionUnit!
   cultivationCycle: CultivationCycle
   occurredOn: Date! @col(name: "occurred_on")
   category: String!
@@ -299,38 +427,69 @@ type DiseasePestIncident @table(name: "disease_pest_incidents") {
   affectedAreaRatio: Float @col(name: "affected_area_ratio")
   actionTaken: String @col(name: "action_taken")
   resolvedOn: Date @col(name: "resolved_on")
+  sourceType: String @col(name: "source_type") @default(expr: "'manual'")
   note: String
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }
 
-type WeatherDaily @table(name: "weather_daily") {
+type ObservationAttachment @table(name: "observation_attachments") {
   id: UUID! @default(expr: "uuidV4()")
-  farm: Farm!
-  targetDate: Date! @col(name: "target_date")
-  tempMinC: Float @col(name: "temp_min_c")
-  tempMaxC: Float @col(name: "temp_max_c")
-  tempAvgC: Float @col(name: "temp_avg_c")
-  humidityAvgPct: Float @col(name: "humidity_avg_pct")
-  precipitationMm: Float @col(name: "precipitation_mm")
-  solarRadiation: Float @col(name: "solar_radiation")
-  sourceName: String @col(name: "source_name")
+  organization: Organization!
+  productionUnit: ProductionUnit
+  cultivationCycle: CultivationCycle
+  workLog: WorkLog
+  harvestRecord: HarvestRecord
+  diseasePestIncident: DiseasePestIncident
+  environmentLog: ProductionUnitEnvironmentLog
+  filePath: String! @col(name: "file_path")
+  fileType: String @col(name: "file_type")
+  caption: String
+  capturedAt: Timestamp @col(name: "captured_at")
+  uploadedBy: User
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
 }
 
-# ==================== 7. いちご特化（拡張） ====================
+# ==================== 8. 分析・予測 ====================
 
-type StrawberryGrowthLog @table(name: "strawberry_growth_logs") {
+type AnalysisRun @table(name: "analysis_runs") {
   id: UUID! @default(expr: "uuidV4()")
-  greenhouse: Greenhouse!
+  organization: Organization!
+  farm: Farm
+  productionUnit: ProductionUnit
   cultivationCycle: CultivationCycle
-  observedOn: Date! @col(name: "observed_on")
-  flowerCount: Int @col(name: "flower_count")
-  fruitSetCount: Int @col(name: "fruit_set_count")
-  malformedFruitCount: Int @col(name: "malformed_fruit_count")
-  grayMoldRiskScore: Int @col(name: "gray_mold_risk_score")
-  note: String
-  recordedBy: User
+  cropType: CropType
+  analysisType: String! @col(name: "analysis_type")
+  targetDate: Date @col(name: "target_date")
+  targetPeriodStart: Date @col(name: "target_period_start")
+  targetPeriodEnd: Date @col(name: "target_period_end")
+  triggerType: String @col(name: "trigger_type")
+  status: String! @default(expr: "'queued'")
+  inputSnapshotVersion: String @col(name: "input_snapshot_version")
+  llmModel: String @col(name: "llm_model")
+  startedAt: Timestamp @col(name: "started_at")
+  completedAt: Timestamp @col(name: "completed_at")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type AnalysisInput @table(name: "analysis_inputs") {
+  id: UUID! @default(expr: "uuidV4()")
+  analysisRun: AnalysisRun!
+  payloadJson: String @col(name: "payload_json")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+}
+
+type AnalysisOutput @table(name: "analysis_outputs") {
+  id: UUID! @default(expr: "uuidV4()")
+  analysisRun: AnalysisRun!
+  summaryText: String @col(name: "summary_text")
+  adviceText: String @col(name: "advice_text")
+  evaluationText: String @col(name: "evaluation_text")
+  riskLevel: String @col(name: "risk_level")
+  confidenceScore: Float @col(name: "confidence_score")
+  actionItemsJson: String @col(name: "action_items_json")
+  keyMetricsJson: String @col(name: "key_metrics_json")
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }

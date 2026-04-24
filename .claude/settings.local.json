@@ -6,7 +6,9 @@
       "Bash(npm run *)",
       "Bash(curl -s http://localhost:3000 -o /dev/null -w \"%{http_code}\")",
       "Bash(curl -s http://localhost:3000/login -o /dev/null -w \"%{http_code}\")",
-      "Bash(curl -s http://localhost:3000/dashboard -o /dev/null -w \"%{http_code}\")"
+      "Bash(curl -s http://localhost:3000/dashboard -o /dev/null -w \"%{http_code}\")",
+      "Bash(npx next *)",
+      "Bash(python *)"
     ]
   }
 }
