@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAnalytics, isSupported } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -17,6 +17,24 @@ export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+declare global {
+  var __agriFirestoreEmulatorEnabled: boolean | undefined;
+}
+
+if (
+  typeof window !== "undefined" &&
+  process.env.NODE_ENV === "development" &&
+  process.env.NEXT_PUBLIC_USE_FIRESTORE_EMULATOR === "true" &&
+  !globalThis.__agriFirestoreEmulatorEnabled
+) {
+  connectFirestoreEmulator(
+    db,
+    process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_HOST ?? "127.0.0.1",
+    Number(process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_PORT ?? "8080")
+  );
+  globalThis.__agriFirestoreEmulatorEnabled = true;
+}
 
 if (typeof window !== "undefined") {
   isSupported().then((supported) => {

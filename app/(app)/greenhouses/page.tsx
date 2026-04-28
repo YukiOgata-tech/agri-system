@@ -17,13 +17,13 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useAgriApp } from "@/components/providers/agri-app-provider";
-import { getCropLabel, getProductionUnitTypeLabel } from "@/lib/agri-mock-data";
+import { getProductionUnitTypeLabel } from "@/lib/agri-mock-data";
 
 const unitSchema = z.object({
   farmName: z.string().min(1, "農場名を入力してください"),
   parentUnitId: z.string().optional(),
   unitType: z.enum(["greenhouse", "open_field", "plot", "bed", "nursery_area"]),
-  code: z.string().min(1, "コードを入力してください"),
+  code: z.string().optional(),
   name: z.string().min(1, "名称を入力してください"),
   areaM2: z.coerce.number().min(1, "面積を入力してください"),
   notes: z.string().optional(),
@@ -38,6 +38,7 @@ export default function ProductionUnitsPage() {
     cultivationCycles,
     addProductionUnit,
     toggleProductionUnitActive,
+    getCropLabel,
     matchesSelectedCrop,
     getUnitById,
   } = useAgriApp();
@@ -58,19 +59,40 @@ export default function ProductionUnitsPage() {
     return cycleMatch && typeMatch;
   });
 
-  const onSubmit = (values: UnitForm) => {
-    addProductionUnit(values);
-    toast.success("生産単位を追加しました");
-    setDialogOpen(false);
-    form.reset({ farmName: values.farmName, unitType: values.unitType });
+  const onSubmit = async (values: UnitForm) => {
+    try {
+      await addProductionUnit(values);
+      toast.success("生産エリアを追加しました");
+      setDialogOpen(false);
+      form.reset({ farmName: values.farmName, unitType: values.unitType });
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "生産エリアの追加に失敗しました"
+      );
+    }
+  };
+
+  const handleToggleUnitActive = async (unitId: string) => {
+    try {
+      await toggleProductionUnitActive(unitId);
+      toast.success("生産エリアの状態を更新しました");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "生産エリアの状態更新に失敗しました"
+      );
+    }
   };
 
   return (
     <div className="flex flex-col gap-6">
       <PageIntro
         eyebrow="Production Units"
-        title="生産単位管理"
-        description="ハウス、露地、区画、ベッドを同じ土台で管理します。作物切替に応じて関連する単位だけを絞り込めます。"
+        title="生産エリア管理"
+        description="ハウス、露地、区画、ベッドを同じ土台で管理します。作物切替に応じて関連するエリアだけを絞り込めます。"
         scopeLabel={getCropLabel(selectedCropId)}
         actions={
           <>
@@ -89,20 +111,20 @@ export default function ProductionUnitsPage() {
             </Select>
             <Button onClick={() => setDialogOpen(true)}>
               <Plus className="mr-2 h-4 w-4" />
-              生産単位を追加
+              生産エリアを追加
             </Button>
           </>
         }
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="-mx-4 sm:mx-0 grid gap-3 sm:gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {filteredUnits.map((unit) => {
           const cycle = cultivationCycles.find(
             (item) => item.productionUnitId === unit.id && item.status === "active"
           );
           const parent = unit.parentUnitId ? getUnitById(unit.parentUnitId) : undefined;
           return (
-            <Card key={unit.id}>
+            <Card key={unit.id} className="rounded-none sm:rounded-xl">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
@@ -132,7 +154,7 @@ export default function ProductionUnitsPage() {
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => toggleProductionUnitActive(unit.id)}>
+                      <DropdownMenuItem onClick={() => void handleToggleUnitActive(unit.id)}>
                         <Power className="mr-2 h-4 w-4" />
                         {unit.isActive ? "停止にする" : "再稼働にする"}
                       </DropdownMenuItem>
@@ -142,11 +164,11 @@ export default function ProductionUnitsPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-2 text-sm">
-                  <span className="text-muted-foreground">コード</span>
+                  <span className="text-muted-foreground">識別コード</span>
                   <span className="text-right font-medium">{unit.code}</span>
                   <span className="text-muted-foreground">面積</span>
                   <span className="text-right font-medium">{unit.areaM2.toLocaleString()} m²</span>
-                  <span className="text-muted-foreground">親単位</span>
+                  <span className="text-muted-foreground">親エリア</span>
                   <span className="text-right font-medium">{parent?.name ?? "-"}</span>
                   <span className="text-muted-foreground">潅水</span>
                   <span className="text-right font-medium">{unit.irrigationSystemType ?? "-"}</span>
@@ -181,7 +203,7 @@ export default function ProductionUnitsPage() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>生産単位の追加</DialogTitle>
+            <DialogTitle>生産エリアの追加</DialogTitle>
           </DialogHeader>
           <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -211,8 +233,8 @@ export default function ProductionUnitsPage() {
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="grid gap-1.5">
-                <Label htmlFor="code">コード</Label>
-                <Input id="code" placeholder="GH-D" {...form.register("code")} />
+                <Label htmlFor="code">識別コード</Label>
+                <Input id="code" placeholder="任意 / 例: GH-D" {...form.register("code")} />
               </div>
               <div className="grid gap-1.5">
                 <Label htmlFor="name">名称</Label>

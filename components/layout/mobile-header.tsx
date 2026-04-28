@@ -4,11 +4,14 @@ import { useState } from "react";
 import { Menu, Sprout, X } from "lucide-react";
 import { Sidebar } from "./sidebar";
 import { useAgriApp } from "@/components/providers/agri-app-provider";
+import { useAppSession } from "@/components/providers/app-session-provider";
 import { CropSwitcher } from "./crop-switcher";
+import { DevDataSourceSwitcher } from "./dev-data-source-switcher";
 
 export function MobileHeader() {
   const [open, setOpen] = useState(false);
   const { selectedCrop } = useAgriApp();
+  const { activeOrganizationName } = useAppSession();
 
   return (
     <>
@@ -27,13 +30,16 @@ export function MobileHeader() {
             <div className="min-w-0">
               <p className="font-bold text-sm">Agri System</p>
               <p className="truncate text-xs text-muted-foreground">
-                {selectedCrop?.name ?? "全作物"}を表示中
+                {activeOrganizationName ?? "未所属"} / {selectedCrop?.name ?? "全作物"}
               </p>
             </div>
           </div>
         </div>
         <div className="border-t border-border px-4 py-3">
           <CropSwitcher compact />
+          <div className="mt-3">
+            <DevDataSourceSwitcher />
+          </div>
         </div>
       </header>
 

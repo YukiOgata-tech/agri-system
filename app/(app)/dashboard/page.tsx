@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -25,15 +26,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAgriApp } from "@/components/providers/agri-app-provider";
-import { getCropLabel, getProductionUnitTypeLabel } from "@/lib/agri-mock-data";
-import { formatCurrency, formatDate, formatDateTime } from "@/lib/utils";
+import { getProductionUnitTypeLabel } from "@/lib/agri-mock-data";
+import {
+  formatCurrency,
+  formatDate,
+  formatDateTime,
+  getCurrentDateInputValue,
+  getRecentDateInputValues,
+  toDateInputValue,
+} from "@/lib/utils";
 
 function sameDay(date: string, target: string) {
-  return date.slice(0, 10) === target;
+  return toDateInputValue(date) === target;
 }
 
 export default function DashboardPage() {
   const {
+    dataSourceMode,
     selectedCropId,
     productionUnits,
     cultivationCycles,
@@ -42,8 +51,11 @@ export default function DashboardPage() {
     environmentLogs,
     diseaseIncidents,
     getUnitById,
+    getCropLabel,
     matchesSelectedCrop,
+    refreshEmulatorData,
   } = useAgriApp();
+  const [currentTime, setCurrentTime] = useState(() => new Date());
 
   const scopedCycles = cultivationCycles.filter((cycle) => matchesSelectedCrop(cycle.cropTypeId));
   const scopedHarvests = harvestRecords.filter((record) => matchesSelectedCrop(record.cropTypeId));
@@ -57,7 +69,17 @@ export default function DashboardPage() {
       ? productionUnits.filter((unit) => unit.isActive)
       : productionUnits.filter((unit) => unit.isActive && scopedUnitIds.has(unit.id));
 
-  const today = "2026-04-24";
+  useEffect(() => {
+    const timerId = window.setInterval(() => {
+      setCurrentTime(new Date());
+      if (dataSourceMode === "emulator") {
+        void refreshEmulatorData();
+      }
+    }, 60_000);
+    return () => window.clearInterval(timerId);
+  }, [dataSourceMode, refreshEmulatorData]);
+
+  const today = getCurrentDateInputValue(currentTime);
   const todayHarvestKg = scopedHarvests
     .filter((record) => sameDay(record.harvestDate, today))
     .reduce((sum, record) => sum + record.normalizedWeightKg, 0);
@@ -69,9 +91,9 @@ export default function DashboardPage() {
     scopedEnvironment.reduce((sum, log) => sum + log.temperatureC, 0) /
     Math.max(scopedEnvironment.length, 1);
 
-  const recentDays = ["2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24"];
+  const recentDays = getRecentDateInputValues(5, currentTime);
   const chartData = recentDays.map((day) => ({
-    date: day.slice(5),
+    date: day.slice(5).replace("-", "/"),
     harvestKg: scopedHarvests
       .filter((record) => sameDay(record.harvestDate, day))
       .reduce((sum, record) => sum + record.normalizedWeightKg, 0),
@@ -90,7 +112,7 @@ export default function DashboardPage() {
       <PageIntro
         eyebrow="Dashboard"
         title="ダッシュボード"
-        description={`${getCropLabel(selectedCropId)}の収穫、出荷、環境、病害虫を横断して確認します。`}
+        description={`${getCropLabel(selectedCropId)}の収穫、出荷、環境、病気・害虫を横断して確認します。基準日 ${formatDate(today)} / 更新 ${formatDateTime(currentTime, { hour: "2-digit", minute: "2-digit" })}`}
         scopeLabel={getCropLabel(selectedCropId)}
         actions={
           <>
@@ -105,7 +127,7 @@ export default function DashboardPage() {
       />
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Active Units" value={`${scopedUnits.length} 件`} detail="稼働中の生産単位" icon={Boxes} tone="leaf" />
+        <StatCard label="Active Units" value={`${scopedUnits.length} 件`} detail="稼働中の生産エリア" icon={Boxes} tone="leaf" />
         <StatCard label="Today Harvest" value={`${todayHarvestKg.toFixed(1)} kg`} detail="当日の重量換算" icon={Leaf} tone="earth" />
         <StatCard label="Today Revenue" value={formatCurrency(todayRevenue)} detail="当日の出荷売上" icon={Coins} tone="sun" />
         <StatCard label="Open Alerts" value={`${openIncidents.length} 件`} detail={`平均気温 ${averageTemp.toFixed(1)}℃`} icon={AlertTriangle} tone={openIncidents.length > 0 ? "danger" : "sky"} />
@@ -155,7 +177,7 @@ export default function DashboardPage() {
           <CardContent className="space-y-3">
             {openIncidents.length === 0 ? (
               <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
-                現在、未解決の病害虫アラートはありません。
+                現在、未解決の病気・害虫アラートはありません。
               </div>
             ) : (
               openIncidents.map((incident) => {
@@ -271,7 +293,7 @@ export default function DashboardPage() {
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <ClipboardList className="h-4 w-4 text-primary" />
-            生産単位一覧
+            生産エリア一覧
           </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

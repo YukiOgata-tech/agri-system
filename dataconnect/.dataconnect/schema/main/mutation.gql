@@ -1,0 +1,3474 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `AnalysisInput` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  analysisInput_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AnalysisInput_Data!
+  ): AnalysisInput_KeyOutput! @fdc_generated(from: "AnalysisInput", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `AnalysisOutput` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  analysisOutput_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AnalysisOutput_Data!
+  ): AnalysisOutput_KeyOutput! @fdc_generated(from: "AnalysisOutput", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `AnalysisRun` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  analysisRun_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: AnalysisRun_Data!
+  ): AnalysisRun_KeyOutput! @fdc_generated(from: "AnalysisRun", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `CropStageEvent` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cropStageEvent_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: CropStageEvent_Data!
+  ): CropStageEvent_KeyOutput! @fdc_generated(from: "CropStageEvent", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `CropType` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cropType_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: CropType_Data!
+  ): CropType_KeyOutput! @fdc_generated(from: "CropType", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `CropVariety` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cropVariety_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: CropVariety_Data!
+  ): CropVariety_KeyOutput! @fdc_generated(from: "CropVariety", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `CultivationCycle` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cultivationCycle_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: CultivationCycle_Data!
+  ): CultivationCycle_KeyOutput! @fdc_generated(from: "CultivationCycle", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `DailyProductionReport` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  dailyProductionReport_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: DailyProductionReport_Data!
+  ): DailyProductionReport_KeyOutput! @fdc_generated(from: "DailyProductionReport", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `DiseasePestIncident` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  diseasePestIncident_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: DiseasePestIncident_Data!
+  ): DiseasePestIncident_KeyOutput! @fdc_generated(from: "DiseasePestIncident", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Farm` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  farm_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Farm_Data!
+  ): Farm_KeyOutput! @fdc_generated(from: "Farm", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `GrowthObservation` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  growthObservation_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: GrowthObservation_Data!
+  ): GrowthObservation_KeyOutput! @fdc_generated(from: "GrowthObservation", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `HarvestRecord` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  harvestRecord_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: HarvestRecord_Data!
+  ): HarvestRecord_KeyOutput! @fdc_generated(from: "HarvestRecord", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `InputMaterial` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  inputMaterial_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: InputMaterial_Data!
+  ): InputMaterial_KeyOutput! @fdc_generated(from: "InputMaterial", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `InventoryTransaction` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  inventoryTransaction_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: InventoryTransaction_Data!
+  ): InventoryTransaction_KeyOutput! @fdc_generated(from: "InventoryTransaction", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `IrrigationLog` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  irrigationLog_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: IrrigationLog_Data!
+  ): IrrigationLog_KeyOutput! @fdc_generated(from: "IrrigationLog", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `MaterialLot` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  materialLot_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: MaterialLot_Data!
+  ): MaterialLot_KeyOutput! @fdc_generated(from: "MaterialLot", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ObservationAttachment` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  observationAttachment_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ObservationAttachment_Data!
+  ): ObservationAttachment_KeyOutput! @fdc_generated(from: "ObservationAttachment", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Organization` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  organization_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Organization_Data!
+  ): Organization_KeyOutput! @fdc_generated(from: "Organization", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `OrganizationCropSetting` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  organizationCropSetting_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: OrganizationCropSetting_Data!
+  ): OrganizationCropSetting_KeyOutput! @fdc_generated(from: "OrganizationCropSetting", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `OrganizationMember` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  organizationMember_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: OrganizationMember_Data!
+  ): OrganizationMember_KeyOutput! @fdc_generated(from: "OrganizationMember", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ProductionUnit` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  productionUnit_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ProductionUnit_Data!
+  ): ProductionUnit_KeyOutput! @fdc_generated(from: "ProductionUnit", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ProductionUnitEnvironmentLog` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  productionUnitEnvironmentLog_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ProductionUnitEnvironmentLog_Data!
+  ): ProductionUnitEnvironmentLog_KeyOutput! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ShipmentRecord` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  shipmentRecord_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ShipmentRecord_Data!
+  ): ShipmentRecord_KeyOutput! @fdc_generated(from: "ShipmentRecord", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `UserPreference` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  userPreference_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: UserPreference_Data!
+  ): UserPreference_KeyOutput! @fdc_generated(from: "UserPreference", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WeatherDaily` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  weatherDaily_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WeatherDaily_Data!
+  ): WeatherDaily_KeyOutput! @fdc_generated(from: "WeatherDaily", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WeatherForecast` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  weatherForecast_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WeatherForecast_Data!
+  ): WeatherForecast_KeyOutput! @fdc_generated(from: "WeatherForecast", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WeatherLocation` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  weatherLocation_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WeatherLocation_Data!
+  ): WeatherLocation_KeyOutput! @fdc_generated(from: "WeatherLocation", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WorkLog` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workLog_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WorkLog_Data!
+  ): WorkLog_KeyOutput! @fdc_generated(from: "WorkLog", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WorkLogTarget` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workLogTarget_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WorkLogTarget_Data!
+  ): WorkLogTarget_KeyOutput! @fdc_generated(from: "WorkLogTarget", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `WorkMaterialUsage` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workMaterialUsage_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: WorkMaterialUsage_Data!
+  ): WorkMaterialUsage_KeyOutput! @fdc_generated(from: "WorkMaterialUsage", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `AnalysisInput` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  analysisInput_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AnalysisInput_Data!]!
+  ): [AnalysisInput_KeyOutput!]! @fdc_generated(from: "AnalysisInput", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `AnalysisOutput` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  analysisOutput_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AnalysisOutput_Data!]!
+  ): [AnalysisOutput_KeyOutput!]! @fdc_generated(from: "AnalysisOutput", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `AnalysisRun` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  analysisRun_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [AnalysisRun_Data!]!
+  ): [AnalysisRun_KeyOutput!]! @fdc_generated(from: "AnalysisRun", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `CropStageEvent` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cropStageEvent_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [CropStageEvent_Data!]!
+  ): [CropStageEvent_KeyOutput!]! @fdc_generated(from: "CropStageEvent", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `CropType` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cropType_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [CropType_Data!]!
+  ): [CropType_KeyOutput!]! @fdc_generated(from: "CropType", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `CropVariety` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cropVariety_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [CropVariety_Data!]!
+  ): [CropVariety_KeyOutput!]! @fdc_generated(from: "CropVariety", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `CultivationCycle` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  cultivationCycle_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [CultivationCycle_Data!]!
+  ): [CultivationCycle_KeyOutput!]! @fdc_generated(from: "CultivationCycle", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `DailyProductionReport` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  dailyProductionReport_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [DailyProductionReport_Data!]!
+  ): [DailyProductionReport_KeyOutput!]! @fdc_generated(from: "DailyProductionReport", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `DiseasePestIncident` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  diseasePestIncident_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [DiseasePestIncident_Data!]!
+  ): [DiseasePestIncident_KeyOutput!]! @fdc_generated(from: "DiseasePestIncident", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Farm` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  farm_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Farm_Data!]!
+  ): [Farm_KeyOutput!]! @fdc_generated(from: "Farm", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `GrowthObservation` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  growthObservation_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [GrowthObservation_Data!]!
+  ): [GrowthObservation_KeyOutput!]! @fdc_generated(from: "GrowthObservation", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `HarvestRecord` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  harvestRecord_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [HarvestRecord_Data!]!
+  ): [HarvestRecord_KeyOutput!]! @fdc_generated(from: "HarvestRecord", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `InputMaterial` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  inputMaterial_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [InputMaterial_Data!]!
+  ): [InputMaterial_KeyOutput!]! @fdc_generated(from: "InputMaterial", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `InventoryTransaction` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  inventoryTransaction_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [InventoryTransaction_Data!]!
+  ): [InventoryTransaction_KeyOutput!]! @fdc_generated(from: "InventoryTransaction", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `IrrigationLog` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  irrigationLog_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [IrrigationLog_Data!]!
+  ): [IrrigationLog_KeyOutput!]! @fdc_generated(from: "IrrigationLog", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `MaterialLot` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  materialLot_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [MaterialLot_Data!]!
+  ): [MaterialLot_KeyOutput!]! @fdc_generated(from: "MaterialLot", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ObservationAttachment` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  observationAttachment_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ObservationAttachment_Data!]!
+  ): [ObservationAttachment_KeyOutput!]! @fdc_generated(from: "ObservationAttachment", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Organization` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  organization_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Organization_Data!]!
+  ): [Organization_KeyOutput!]! @fdc_generated(from: "Organization", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `OrganizationCropSetting` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  organizationCropSetting_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [OrganizationCropSetting_Data!]!
+  ): [OrganizationCropSetting_KeyOutput!]! @fdc_generated(from: "OrganizationCropSetting", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `OrganizationMember` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  organizationMember_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [OrganizationMember_Data!]!
+  ): [OrganizationMember_KeyOutput!]! @fdc_generated(from: "OrganizationMember", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ProductionUnit` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  productionUnit_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ProductionUnit_Data!]!
+  ): [ProductionUnit_KeyOutput!]! @fdc_generated(from: "ProductionUnit", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ProductionUnitEnvironmentLog` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  productionUnitEnvironmentLog_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ProductionUnitEnvironmentLog_Data!]!
+  ): [ProductionUnitEnvironmentLog_KeyOutput!]! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ShipmentRecord` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  shipmentRecord_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ShipmentRecord_Data!]!
+  ): [ShipmentRecord_KeyOutput!]! @fdc_generated(from: "ShipmentRecord", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `UserPreference` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  userPreference_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [UserPreference_Data!]!
+  ): [UserPreference_KeyOutput!]! @fdc_generated(from: "UserPreference", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WeatherDaily` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  weatherDaily_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WeatherDaily_Data!]!
+  ): [WeatherDaily_KeyOutput!]! @fdc_generated(from: "WeatherDaily", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WeatherForecast` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  weatherForecast_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WeatherForecast_Data!]!
+  ): [WeatherForecast_KeyOutput!]! @fdc_generated(from: "WeatherForecast", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WeatherLocation` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  weatherLocation_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WeatherLocation_Data!]!
+  ): [WeatherLocation_KeyOutput!]! @fdc_generated(from: "WeatherLocation", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WorkLog` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workLog_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WorkLog_Data!]!
+  ): [WorkLog_KeyOutput!]! @fdc_generated(from: "WorkLog", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WorkLogTarget` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workLogTarget_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WorkLogTarget_Data!]!
+  ): [WorkLogTarget_KeyOutput!]! @fdc_generated(from: "WorkLogTarget", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `WorkMaterialUsage` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  workMaterialUsage_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [WorkMaterialUsage_Data!]!
+  ): [WorkMaterialUsage_KeyOutput!]! @fdc_generated(from: "WorkMaterialUsage", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `AnalysisInput` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AnalysisInput`.
+  """
+  analysisInput_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AnalysisInput_Data!
+  ): AnalysisInput_KeyOutput! @fdc_generated(from: "AnalysisInput", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `AnalysisOutput` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AnalysisOutput`.
+  """
+  analysisOutput_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AnalysisOutput_Data!
+  ): AnalysisOutput_KeyOutput! @fdc_generated(from: "AnalysisOutput", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `AnalysisRun` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AnalysisRun`.
+  """
+  analysisRun_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: AnalysisRun_Data!
+  ): AnalysisRun_KeyOutput! @fdc_generated(from: "AnalysisRun", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `CropStageEvent` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CropStageEvent`.
+  """
+  cropStageEvent_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: CropStageEvent_Data!
+  ): CropStageEvent_KeyOutput! @fdc_generated(from: "CropStageEvent", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `CropType` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CropType`.
+  """
+  cropType_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: CropType_Data!
+  ): CropType_KeyOutput! @fdc_generated(from: "CropType", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `CropVariety` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CropVariety`.
+  """
+  cropVariety_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: CropVariety_Data!
+  ): CropVariety_KeyOutput! @fdc_generated(from: "CropVariety", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `CultivationCycle` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CultivationCycle`.
+  """
+  cultivationCycle_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: CultivationCycle_Data!
+  ): CultivationCycle_KeyOutput! @fdc_generated(from: "CultivationCycle", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `DailyProductionReport` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `DailyProductionReport`.
+  """
+  dailyProductionReport_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: DailyProductionReport_Data!
+  ): DailyProductionReport_KeyOutput! @fdc_generated(from: "DailyProductionReport", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `DiseasePestIncident` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `DiseasePestIncident`.
+  """
+  diseasePestIncident_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: DiseasePestIncident_Data!
+  ): DiseasePestIncident_KeyOutput! @fdc_generated(from: "DiseasePestIncident", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Farm` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Farm`.
+  """
+  farm_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Farm_Data!
+  ): Farm_KeyOutput! @fdc_generated(from: "Farm", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `GrowthObservation` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `GrowthObservation`.
+  """
+  growthObservation_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: GrowthObservation_Data!
+  ): GrowthObservation_KeyOutput! @fdc_generated(from: "GrowthObservation", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `HarvestRecord` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `HarvestRecord`.
+  """
+  harvestRecord_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: HarvestRecord_Data!
+  ): HarvestRecord_KeyOutput! @fdc_generated(from: "HarvestRecord", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `InputMaterial` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `InputMaterial`.
+  """
+  inputMaterial_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: InputMaterial_Data!
+  ): InputMaterial_KeyOutput! @fdc_generated(from: "InputMaterial", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `InventoryTransaction` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `InventoryTransaction`.
+  """
+  inventoryTransaction_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: InventoryTransaction_Data!
+  ): InventoryTransaction_KeyOutput! @fdc_generated(from: "InventoryTransaction", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `IrrigationLog` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `IrrigationLog`.
+  """
+  irrigationLog_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: IrrigationLog_Data!
+  ): IrrigationLog_KeyOutput! @fdc_generated(from: "IrrigationLog", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `MaterialLot` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `MaterialLot`.
+  """
+  materialLot_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: MaterialLot_Data!
+  ): MaterialLot_KeyOutput! @fdc_generated(from: "MaterialLot", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ObservationAttachment` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ObservationAttachment`.
+  """
+  observationAttachment_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ObservationAttachment_Data!
+  ): ObservationAttachment_KeyOutput! @fdc_generated(from: "ObservationAttachment", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Organization` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Organization`.
+  """
+  organization_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Organization_Data!
+  ): Organization_KeyOutput! @fdc_generated(from: "Organization", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `OrganizationCropSetting` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OrganizationCropSetting`.
+  """
+  organizationCropSetting_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: OrganizationCropSetting_Data!
+  ): OrganizationCropSetting_KeyOutput! @fdc_generated(from: "OrganizationCropSetting", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `OrganizationMember` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OrganizationMember`.
+  """
+  organizationMember_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: OrganizationMember_Data!
+  ): OrganizationMember_KeyOutput! @fdc_generated(from: "OrganizationMember", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ProductionUnit` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProductionUnit`.
+  """
+  productionUnit_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ProductionUnit_Data!
+  ): ProductionUnit_KeyOutput! @fdc_generated(from: "ProductionUnit", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ProductionUnitEnvironmentLog` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProductionUnitEnvironmentLog`.
+  """
+  productionUnitEnvironmentLog_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ProductionUnitEnvironmentLog_Data!
+  ): ProductionUnitEnvironmentLog_KeyOutput! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ShipmentRecord` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ShipmentRecord`.
+  """
+  shipmentRecord_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ShipmentRecord_Data!
+  ): ShipmentRecord_KeyOutput! @fdc_generated(from: "ShipmentRecord", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `UserPreference` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `UserPreference`.
+  """
+  userPreference_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: UserPreference_Data!
+  ): UserPreference_KeyOutput! @fdc_generated(from: "UserPreference", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WeatherDaily` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WeatherDaily`.
+  """
+  weatherDaily_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WeatherDaily_Data!
+  ): WeatherDaily_KeyOutput! @fdc_generated(from: "WeatherDaily", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WeatherForecast` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WeatherForecast`.
+  """
+  weatherForecast_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WeatherForecast_Data!
+  ): WeatherForecast_KeyOutput! @fdc_generated(from: "WeatherForecast", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WeatherLocation` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WeatherLocation`.
+  """
+  weatherLocation_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WeatherLocation_Data!
+  ): WeatherLocation_KeyOutput! @fdc_generated(from: "WeatherLocation", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WorkLog` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkLog`.
+  """
+  workLog_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WorkLog_Data!
+  ): WorkLog_KeyOutput! @fdc_generated(from: "WorkLog", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WorkLogTarget` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkLogTarget`.
+  """
+  workLogTarget_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WorkLogTarget_Data!
+  ): WorkLogTarget_KeyOutput! @fdc_generated(from: "WorkLogTarget", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `WorkMaterialUsage` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkMaterialUsage`.
+  """
+  workMaterialUsage_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: WorkMaterialUsage_Data!
+  ): WorkMaterialUsage_KeyOutput! @fdc_generated(from: "WorkMaterialUsage", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `AnalysisInput` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AnalysisInput`.
+  """
+  analysisInput_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AnalysisInput_Data!]!
+  ): [AnalysisInput_KeyOutput!]! @fdc_generated(from: "AnalysisInput", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `AnalysisOutput` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AnalysisOutput`.
+  """
+  analysisOutput_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AnalysisOutput_Data!]!
+  ): [AnalysisOutput_KeyOutput!]! @fdc_generated(from: "AnalysisOutput", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `AnalysisRun` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `AnalysisRun`.
+  """
+  analysisRun_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [AnalysisRun_Data!]!
+  ): [AnalysisRun_KeyOutput!]! @fdc_generated(from: "AnalysisRun", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `CropStageEvent` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CropStageEvent`.
+  """
+  cropStageEvent_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [CropStageEvent_Data!]!
+  ): [CropStageEvent_KeyOutput!]! @fdc_generated(from: "CropStageEvent", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `CropType` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CropType`.
+  """
+  cropType_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [CropType_Data!]!
+  ): [CropType_KeyOutput!]! @fdc_generated(from: "CropType", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `CropVariety` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CropVariety`.
+  """
+  cropVariety_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [CropVariety_Data!]!
+  ): [CropVariety_KeyOutput!]! @fdc_generated(from: "CropVariety", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `CultivationCycle` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `CultivationCycle`.
+  """
+  cultivationCycle_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [CultivationCycle_Data!]!
+  ): [CultivationCycle_KeyOutput!]! @fdc_generated(from: "CultivationCycle", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `DailyProductionReport` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `DailyProductionReport`.
+  """
+  dailyProductionReport_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [DailyProductionReport_Data!]!
+  ): [DailyProductionReport_KeyOutput!]! @fdc_generated(from: "DailyProductionReport", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `DiseasePestIncident` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `DiseasePestIncident`.
+  """
+  diseasePestIncident_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [DiseasePestIncident_Data!]!
+  ): [DiseasePestIncident_KeyOutput!]! @fdc_generated(from: "DiseasePestIncident", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Farm` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Farm`.
+  """
+  farm_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Farm_Data!]!
+  ): [Farm_KeyOutput!]! @fdc_generated(from: "Farm", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `GrowthObservation` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `GrowthObservation`.
+  """
+  growthObservation_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [GrowthObservation_Data!]!
+  ): [GrowthObservation_KeyOutput!]! @fdc_generated(from: "GrowthObservation", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `HarvestRecord` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `HarvestRecord`.
+  """
+  harvestRecord_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [HarvestRecord_Data!]!
+  ): [HarvestRecord_KeyOutput!]! @fdc_generated(from: "HarvestRecord", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `InputMaterial` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `InputMaterial`.
+  """
+  inputMaterial_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [InputMaterial_Data!]!
+  ): [InputMaterial_KeyOutput!]! @fdc_generated(from: "InputMaterial", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `InventoryTransaction` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `InventoryTransaction`.
+  """
+  inventoryTransaction_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [InventoryTransaction_Data!]!
+  ): [InventoryTransaction_KeyOutput!]! @fdc_generated(from: "InventoryTransaction", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `IrrigationLog` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `IrrigationLog`.
+  """
+  irrigationLog_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [IrrigationLog_Data!]!
+  ): [IrrigationLog_KeyOutput!]! @fdc_generated(from: "IrrigationLog", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `MaterialLot` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `MaterialLot`.
+  """
+  materialLot_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [MaterialLot_Data!]!
+  ): [MaterialLot_KeyOutput!]! @fdc_generated(from: "MaterialLot", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ObservationAttachment` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ObservationAttachment`.
+  """
+  observationAttachment_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ObservationAttachment_Data!]!
+  ): [ObservationAttachment_KeyOutput!]! @fdc_generated(from: "ObservationAttachment", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Organization` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Organization`.
+  """
+  organization_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Organization_Data!]!
+  ): [Organization_KeyOutput!]! @fdc_generated(from: "Organization", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `OrganizationCropSetting` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OrganizationCropSetting`.
+  """
+  organizationCropSetting_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [OrganizationCropSetting_Data!]!
+  ): [OrganizationCropSetting_KeyOutput!]! @fdc_generated(from: "OrganizationCropSetting", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `OrganizationMember` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `OrganizationMember`.
+  """
+  organizationMember_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [OrganizationMember_Data!]!
+  ): [OrganizationMember_KeyOutput!]! @fdc_generated(from: "OrganizationMember", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ProductionUnit` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProductionUnit`.
+  """
+  productionUnit_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ProductionUnit_Data!]!
+  ): [ProductionUnit_KeyOutput!]! @fdc_generated(from: "ProductionUnit", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ProductionUnitEnvironmentLog` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProductionUnitEnvironmentLog`.
+  """
+  productionUnitEnvironmentLog_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ProductionUnitEnvironmentLog_Data!]!
+  ): [ProductionUnitEnvironmentLog_KeyOutput!]! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ShipmentRecord` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ShipmentRecord`.
+  """
+  shipmentRecord_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ShipmentRecord_Data!]!
+  ): [ShipmentRecord_KeyOutput!]! @fdc_generated(from: "ShipmentRecord", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `UserPreference` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `UserPreference`.
+  """
+  userPreference_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [UserPreference_Data!]!
+  ): [UserPreference_KeyOutput!]! @fdc_generated(from: "UserPreference", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WeatherDaily` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WeatherDaily`.
+  """
+  weatherDaily_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WeatherDaily_Data!]!
+  ): [WeatherDaily_KeyOutput!]! @fdc_generated(from: "WeatherDaily", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WeatherForecast` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WeatherForecast`.
+  """
+  weatherForecast_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WeatherForecast_Data!]!
+  ): [WeatherForecast_KeyOutput!]! @fdc_generated(from: "WeatherForecast", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WeatherLocation` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WeatherLocation`.
+  """
+  weatherLocation_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WeatherLocation_Data!]!
+  ): [WeatherLocation_KeyOutput!]! @fdc_generated(from: "WeatherLocation", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WorkLog` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkLog`.
+  """
+  workLog_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WorkLog_Data!]!
+  ): [WorkLog_KeyOutput!]! @fdc_generated(from: "WorkLog", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WorkLogTarget` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkLogTarget`.
+  """
+  workLogTarget_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WorkLogTarget_Data!]!
+  ): [WorkLogTarget_KeyOutput!]! @fdc_generated(from: "WorkLogTarget", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `WorkMaterialUsage` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `WorkMaterialUsage`.
+  """
+  workMaterialUsage_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [WorkMaterialUsage_Data!]!
+  ): [WorkMaterialUsage_KeyOutput!]! @fdc_generated(from: "WorkMaterialUsage", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `AnalysisInput` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AnalysisInput` or `null` if not found.
+  """
+  analysisInput_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisInput_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisInput_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AnalysisInput_Data!
+  ): AnalysisInput_KeyOutput @fdc_generated(from: "AnalysisInput", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `AnalysisOutput` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AnalysisOutput` or `null` if not found.
+  """
+  analysisOutput_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisOutput_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisOutput_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AnalysisOutput_Data!
+  ): AnalysisOutput_KeyOutput @fdc_generated(from: "AnalysisOutput", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `AnalysisRun` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `AnalysisRun` or `null` if not found.
+  """
+  analysisRun_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisRun_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisRun_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: AnalysisRun_Data!
+  ): AnalysisRun_KeyOutput @fdc_generated(from: "AnalysisRun", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `CropStageEvent` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `CropStageEvent` or `null` if not found.
+  """
+  cropStageEvent_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropStageEvent_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropStageEvent_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: CropStageEvent_Data!
+  ): CropStageEvent_KeyOutput @fdc_generated(from: "CropStageEvent", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `CropType` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `CropType` or `null` if not found.
+  """
+  cropType_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropType_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropType_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: CropType_Data!
+  ): CropType_KeyOutput @fdc_generated(from: "CropType", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `CropVariety` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `CropVariety` or `null` if not found.
+  """
+  cropVariety_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropVariety_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropVariety_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: CropVariety_Data!
+  ): CropVariety_KeyOutput @fdc_generated(from: "CropVariety", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `CultivationCycle` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `CultivationCycle` or `null` if not found.
+  """
+  cultivationCycle_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CultivationCycle_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CultivationCycle_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: CultivationCycle_Data!
+  ): CultivationCycle_KeyOutput @fdc_generated(from: "CultivationCycle", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `DailyProductionReport` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `DailyProductionReport` or `null` if not found.
+  """
+  dailyProductionReport_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: DailyProductionReport_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: DailyProductionReport_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: DailyProductionReport_Data!
+  ): DailyProductionReport_KeyOutput @fdc_generated(from: "DailyProductionReport", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `DiseasePestIncident` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `DiseasePestIncident` or `null` if not found.
+  """
+  diseasePestIncident_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: DiseasePestIncident_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: DiseasePestIncident_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: DiseasePestIncident_Data!
+  ): DiseasePestIncident_KeyOutput @fdc_generated(from: "DiseasePestIncident", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Farm` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Farm` or `null` if not found.
+  """
+  farm_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Farm_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Farm_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Farm_Data!
+  ): Farm_KeyOutput @fdc_generated(from: "Farm", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `GrowthObservation` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `GrowthObservation` or `null` if not found.
+  """
+  growthObservation_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: GrowthObservation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: GrowthObservation_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: GrowthObservation_Data!
+  ): GrowthObservation_KeyOutput @fdc_generated(from: "GrowthObservation", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `HarvestRecord` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `HarvestRecord` or `null` if not found.
+  """
+  harvestRecord_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: HarvestRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: HarvestRecord_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: HarvestRecord_Data!
+  ): HarvestRecord_KeyOutput @fdc_generated(from: "HarvestRecord", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `InputMaterial` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `InputMaterial` or `null` if not found.
+  """
+  inputMaterial_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: InputMaterial_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: InputMaterial_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: InputMaterial_Data!
+  ): InputMaterial_KeyOutput @fdc_generated(from: "InputMaterial", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `InventoryTransaction` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `InventoryTransaction` or `null` if not found.
+  """
+  inventoryTransaction_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: InventoryTransaction_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: InventoryTransaction_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: InventoryTransaction_Data!
+  ): InventoryTransaction_KeyOutput @fdc_generated(from: "InventoryTransaction", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `IrrigationLog` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `IrrigationLog` or `null` if not found.
+  """
+  irrigationLog_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: IrrigationLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: IrrigationLog_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: IrrigationLog_Data!
+  ): IrrigationLog_KeyOutput @fdc_generated(from: "IrrigationLog", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `MaterialLot` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `MaterialLot` or `null` if not found.
+  """
+  materialLot_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: MaterialLot_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: MaterialLot_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: MaterialLot_Data!
+  ): MaterialLot_KeyOutput @fdc_generated(from: "MaterialLot", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ObservationAttachment` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ObservationAttachment` or `null` if not found.
+  """
+  observationAttachment_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ObservationAttachment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ObservationAttachment_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ObservationAttachment_Data!
+  ): ObservationAttachment_KeyOutput @fdc_generated(from: "ObservationAttachment", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Organization` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Organization` or `null` if not found.
+  """
+  organization_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Organization_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Organization_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Organization_Data!
+  ): Organization_KeyOutput @fdc_generated(from: "Organization", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `OrganizationCropSetting` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `OrganizationCropSetting` or `null` if not found.
+  """
+  organizationCropSetting_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OrganizationCropSetting_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OrganizationCropSetting_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: OrganizationCropSetting_Data!
+  ): OrganizationCropSetting_KeyOutput @fdc_generated(from: "OrganizationCropSetting", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `OrganizationMember` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `OrganizationMember` or `null` if not found.
+  """
+  organizationMember_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OrganizationMember_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OrganizationMember_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: OrganizationMember_Data!
+  ): OrganizationMember_KeyOutput @fdc_generated(from: "OrganizationMember", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ProductionUnit` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ProductionUnit` or `null` if not found.
+  """
+  productionUnit_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ProductionUnit_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProductionUnit_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ProductionUnit_Data!
+  ): ProductionUnit_KeyOutput @fdc_generated(from: "ProductionUnit", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ProductionUnitEnvironmentLog` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ProductionUnitEnvironmentLog` or `null` if not found.
+  """
+  productionUnitEnvironmentLog_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ProductionUnitEnvironmentLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProductionUnitEnvironmentLog_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ProductionUnitEnvironmentLog_Data!
+  ): ProductionUnitEnvironmentLog_KeyOutput @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ShipmentRecord` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ShipmentRecord` or `null` if not found.
+  """
+  shipmentRecord_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ShipmentRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ShipmentRecord_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ShipmentRecord_Data!
+  ): ShipmentRecord_KeyOutput @fdc_generated(from: "ShipmentRecord", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `UserPreference` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `UserPreference` or `null` if not found.
+  """
+  userPreference_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: UserPreference_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: UserPreference_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: UserPreference_Data!
+  ): UserPreference_KeyOutput @fdc_generated(from: "UserPreference", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WeatherDaily` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WeatherDaily` or `null` if not found.
+  """
+  weatherDaily_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherDaily_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherDaily_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WeatherDaily_Data!
+  ): WeatherDaily_KeyOutput @fdc_generated(from: "WeatherDaily", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WeatherForecast` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WeatherForecast` or `null` if not found.
+  """
+  weatherForecast_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherForecast_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherForecast_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WeatherForecast_Data!
+  ): WeatherForecast_KeyOutput @fdc_generated(from: "WeatherForecast", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WeatherLocation` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WeatherLocation` or `null` if not found.
+  """
+  weatherLocation_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherLocation_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WeatherLocation_Data!
+  ): WeatherLocation_KeyOutput @fdc_generated(from: "WeatherLocation", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WorkLog` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WorkLog` or `null` if not found.
+  """
+  workLog_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLog_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WorkLog_Data!
+  ): WorkLog_KeyOutput @fdc_generated(from: "WorkLog", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WorkLogTarget` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WorkLogTarget` or `null` if not found.
+  """
+  workLogTarget_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLogTarget_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLogTarget_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WorkLogTarget_Data!
+  ): WorkLogTarget_KeyOutput @fdc_generated(from: "WorkLogTarget", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `WorkMaterialUsage` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `WorkMaterialUsage` or `null` if not found.
+  """
+  workMaterialUsage_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkMaterialUsage_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkMaterialUsage_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: WorkMaterialUsage_Data!
+  ): WorkMaterialUsage_KeyOutput @fdc_generated(from: "WorkMaterialUsage", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `AnalysisInput` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  analysisInput_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AnalysisInput_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AnalysisInput_Data!
+  ): Int! @fdc_generated(from: "AnalysisInput", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `AnalysisOutput` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  analysisOutput_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AnalysisOutput_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AnalysisOutput_Data!
+  ): Int! @fdc_generated(from: "AnalysisOutput", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `AnalysisRun` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  analysisRun_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: AnalysisRun_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: AnalysisRun_Data!
+  ): Int! @fdc_generated(from: "AnalysisRun", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `CropStageEvent` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  cropStageEvent_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: CropStageEvent_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: CropStageEvent_Data!
+  ): Int! @fdc_generated(from: "CropStageEvent", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `CropType` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  cropType_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: CropType_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: CropType_Data!
+  ): Int! @fdc_generated(from: "CropType", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `CropVariety` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  cropVariety_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: CropVariety_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: CropVariety_Data!
+  ): Int! @fdc_generated(from: "CropVariety", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `CultivationCycle` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  cultivationCycle_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: CultivationCycle_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: CultivationCycle_Data!
+  ): Int! @fdc_generated(from: "CultivationCycle", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `DailyProductionReport` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  dailyProductionReport_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: DailyProductionReport_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: DailyProductionReport_Data!
+  ): Int! @fdc_generated(from: "DailyProductionReport", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `DiseasePestIncident` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  diseasePestIncident_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: DiseasePestIncident_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: DiseasePestIncident_Data!
+  ): Int! @fdc_generated(from: "DiseasePestIncident", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Farm` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  farm_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Farm_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Farm_Data!
+  ): Int! @fdc_generated(from: "Farm", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `GrowthObservation` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  growthObservation_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: GrowthObservation_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: GrowthObservation_Data!
+  ): Int! @fdc_generated(from: "GrowthObservation", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `HarvestRecord` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  harvestRecord_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: HarvestRecord_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: HarvestRecord_Data!
+  ): Int! @fdc_generated(from: "HarvestRecord", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `InputMaterial` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  inputMaterial_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: InputMaterial_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: InputMaterial_Data!
+  ): Int! @fdc_generated(from: "InputMaterial", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `InventoryTransaction` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  inventoryTransaction_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: InventoryTransaction_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: InventoryTransaction_Data!
+  ): Int! @fdc_generated(from: "InventoryTransaction", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `IrrigationLog` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  irrigationLog_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: IrrigationLog_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: IrrigationLog_Data!
+  ): Int! @fdc_generated(from: "IrrigationLog", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `MaterialLot` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  materialLot_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: MaterialLot_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: MaterialLot_Data!
+  ): Int! @fdc_generated(from: "MaterialLot", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ObservationAttachment` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  observationAttachment_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ObservationAttachment_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ObservationAttachment_Data!
+  ): Int! @fdc_generated(from: "ObservationAttachment", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Organization` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  organization_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Organization_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Organization_Data!
+  ): Int! @fdc_generated(from: "Organization", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `OrganizationCropSetting` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  organizationCropSetting_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: OrganizationCropSetting_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: OrganizationCropSetting_Data!
+  ): Int! @fdc_generated(from: "OrganizationCropSetting", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `OrganizationMember` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  organizationMember_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: OrganizationMember_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: OrganizationMember_Data!
+  ): Int! @fdc_generated(from: "OrganizationMember", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ProductionUnit` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  productionUnit_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ProductionUnit_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ProductionUnit_Data!
+  ): Int! @fdc_generated(from: "ProductionUnit", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ProductionUnitEnvironmentLog` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  productionUnitEnvironmentLog_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ProductionUnitEnvironmentLog_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ProductionUnitEnvironmentLog_Data!
+  ): Int! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ShipmentRecord` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  shipmentRecord_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ShipmentRecord_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ShipmentRecord_Data!
+  ): Int! @fdc_generated(from: "ShipmentRecord", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `UserPreference` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  userPreference_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: UserPreference_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: UserPreference_Data!
+  ): Int! @fdc_generated(from: "UserPreference", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WeatherDaily` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  weatherDaily_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WeatherDaily_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WeatherDaily_Data!
+  ): Int! @fdc_generated(from: "WeatherDaily", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WeatherForecast` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  weatherForecast_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WeatherForecast_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WeatherForecast_Data!
+  ): Int! @fdc_generated(from: "WeatherForecast", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WeatherLocation` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  weatherLocation_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WeatherLocation_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WeatherLocation_Data!
+  ): Int! @fdc_generated(from: "WeatherLocation", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WorkLog` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  workLog_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WorkLog_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WorkLog_Data!
+  ): Int! @fdc_generated(from: "WorkLog", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WorkLogTarget` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  workLogTarget_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WorkLogTarget_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WorkLogTarget_Data!
+  ): Int! @fdc_generated(from: "WorkLogTarget", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `WorkMaterialUsage` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  workMaterialUsage_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: WorkMaterialUsage_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: WorkMaterialUsage_Data!
+  ): Int! @fdc_generated(from: "WorkMaterialUsage", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `AnalysisInput` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  analysisInput_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisInput_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisInput_FirstRow
+  ): AnalysisInput_KeyOutput @fdc_generated(from: "AnalysisInput", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `AnalysisOutput` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  analysisOutput_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisOutput_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisOutput_FirstRow
+  ): AnalysisOutput_KeyOutput @fdc_generated(from: "AnalysisOutput", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `AnalysisRun` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  analysisRun_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisRun_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisRun_FirstRow
+  ): AnalysisRun_KeyOutput @fdc_generated(from: "AnalysisRun", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `CropStageEvent` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  cropStageEvent_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropStageEvent_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropStageEvent_FirstRow
+  ): CropStageEvent_KeyOutput @fdc_generated(from: "CropStageEvent", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `CropType` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  cropType_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropType_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropType_FirstRow
+  ): CropType_KeyOutput @fdc_generated(from: "CropType", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `CropVariety` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  cropVariety_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropVariety_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropVariety_FirstRow
+  ): CropVariety_KeyOutput @fdc_generated(from: "CropVariety", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `CultivationCycle` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  cultivationCycle_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CultivationCycle_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CultivationCycle_FirstRow
+  ): CultivationCycle_KeyOutput @fdc_generated(from: "CultivationCycle", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `DailyProductionReport` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  dailyProductionReport_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: DailyProductionReport_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: DailyProductionReport_FirstRow
+  ): DailyProductionReport_KeyOutput @fdc_generated(from: "DailyProductionReport", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `DiseasePestIncident` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  diseasePestIncident_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: DiseasePestIncident_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: DiseasePestIncident_FirstRow
+  ): DiseasePestIncident_KeyOutput @fdc_generated(from: "DiseasePestIncident", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Farm` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  farm_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Farm_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Farm_FirstRow
+  ): Farm_KeyOutput @fdc_generated(from: "Farm", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `GrowthObservation` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  growthObservation_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: GrowthObservation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: GrowthObservation_FirstRow
+  ): GrowthObservation_KeyOutput @fdc_generated(from: "GrowthObservation", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `HarvestRecord` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  harvestRecord_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: HarvestRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: HarvestRecord_FirstRow
+  ): HarvestRecord_KeyOutput @fdc_generated(from: "HarvestRecord", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `InputMaterial` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  inputMaterial_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: InputMaterial_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: InputMaterial_FirstRow
+  ): InputMaterial_KeyOutput @fdc_generated(from: "InputMaterial", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `InventoryTransaction` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  inventoryTransaction_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: InventoryTransaction_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: InventoryTransaction_FirstRow
+  ): InventoryTransaction_KeyOutput @fdc_generated(from: "InventoryTransaction", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `IrrigationLog` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  irrigationLog_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: IrrigationLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: IrrigationLog_FirstRow
+  ): IrrigationLog_KeyOutput @fdc_generated(from: "IrrigationLog", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `MaterialLot` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  materialLot_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: MaterialLot_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: MaterialLot_FirstRow
+  ): MaterialLot_KeyOutput @fdc_generated(from: "MaterialLot", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ObservationAttachment` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  observationAttachment_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ObservationAttachment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ObservationAttachment_FirstRow
+  ): ObservationAttachment_KeyOutput @fdc_generated(from: "ObservationAttachment", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Organization` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  organization_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Organization_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Organization_FirstRow
+  ): Organization_KeyOutput @fdc_generated(from: "Organization", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `OrganizationCropSetting` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  organizationCropSetting_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OrganizationCropSetting_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OrganizationCropSetting_FirstRow
+  ): OrganizationCropSetting_KeyOutput @fdc_generated(from: "OrganizationCropSetting", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `OrganizationMember` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  organizationMember_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OrganizationMember_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OrganizationMember_FirstRow
+  ): OrganizationMember_KeyOutput @fdc_generated(from: "OrganizationMember", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ProductionUnit` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  productionUnit_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ProductionUnit_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProductionUnit_FirstRow
+  ): ProductionUnit_KeyOutput @fdc_generated(from: "ProductionUnit", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ProductionUnitEnvironmentLog` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  productionUnitEnvironmentLog_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ProductionUnitEnvironmentLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProductionUnitEnvironmentLog_FirstRow
+  ): ProductionUnitEnvironmentLog_KeyOutput @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ShipmentRecord` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  shipmentRecord_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ShipmentRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ShipmentRecord_FirstRow
+  ): ShipmentRecord_KeyOutput @fdc_generated(from: "ShipmentRecord", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `UserPreference` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  userPreference_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: UserPreference_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: UserPreference_FirstRow
+  ): UserPreference_KeyOutput @fdc_generated(from: "UserPreference", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WeatherDaily` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  weatherDaily_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherDaily_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherDaily_FirstRow
+  ): WeatherDaily_KeyOutput @fdc_generated(from: "WeatherDaily", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WeatherForecast` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  weatherForecast_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherForecast_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherForecast_FirstRow
+  ): WeatherForecast_KeyOutput @fdc_generated(from: "WeatherForecast", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WeatherLocation` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  weatherLocation_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherLocation_FirstRow
+  ): WeatherLocation_KeyOutput @fdc_generated(from: "WeatherLocation", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WorkLog` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  workLog_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLog_FirstRow
+  ): WorkLog_KeyOutput @fdc_generated(from: "WorkLog", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WorkLogTarget` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  workLogTarget_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLogTarget_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLogTarget_FirstRow
+  ): WorkLogTarget_KeyOutput @fdc_generated(from: "WorkLogTarget", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `WorkMaterialUsage` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  workMaterialUsage_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkMaterialUsage_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkMaterialUsage_FirstRow
+  ): WorkMaterialUsage_KeyOutput @fdc_generated(from: "WorkMaterialUsage", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `AnalysisInput` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  analysisInput_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AnalysisInput_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AnalysisInput", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `AnalysisOutput` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  analysisOutput_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AnalysisOutput_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AnalysisOutput", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `AnalysisRun` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  analysisRun_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: AnalysisRun_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "AnalysisRun", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `CropStageEvent` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  cropStageEvent_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: CropStageEvent_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "CropStageEvent", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `CropType` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  cropType_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: CropType_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "CropType", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `CropVariety` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  cropVariety_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: CropVariety_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "CropVariety", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `CultivationCycle` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  cultivationCycle_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: CultivationCycle_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "CultivationCycle", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `DailyProductionReport` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  dailyProductionReport_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: DailyProductionReport_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "DailyProductionReport", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `DiseasePestIncident` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  diseasePestIncident_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: DiseasePestIncident_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "DiseasePestIncident", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Farm` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  farm_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Farm_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Farm", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `GrowthObservation` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  growthObservation_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: GrowthObservation_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "GrowthObservation", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `HarvestRecord` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  harvestRecord_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: HarvestRecord_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "HarvestRecord", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `InputMaterial` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  inputMaterial_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: InputMaterial_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "InputMaterial", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `InventoryTransaction` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  inventoryTransaction_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: InventoryTransaction_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "InventoryTransaction", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `IrrigationLog` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  irrigationLog_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: IrrigationLog_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "IrrigationLog", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `MaterialLot` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  materialLot_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: MaterialLot_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "MaterialLot", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ObservationAttachment` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  observationAttachment_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ObservationAttachment_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ObservationAttachment", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Organization` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  organization_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Organization_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Organization", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `OrganizationCropSetting` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  organizationCropSetting_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: OrganizationCropSetting_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "OrganizationCropSetting", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `OrganizationMember` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  organizationMember_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: OrganizationMember_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "OrganizationMember", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ProductionUnit` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  productionUnit_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ProductionUnit_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ProductionUnit", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ProductionUnitEnvironmentLog` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  productionUnitEnvironmentLog_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ProductionUnitEnvironmentLog_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ShipmentRecord` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  shipmentRecord_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ShipmentRecord_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ShipmentRecord", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `UserPreference` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  userPreference_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: UserPreference_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "UserPreference", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WeatherDaily` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  weatherDaily_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WeatherDaily_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WeatherDaily", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WeatherForecast` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  weatherForecast_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WeatherForecast_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WeatherForecast", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WeatherLocation` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  weatherLocation_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WeatherLocation_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WeatherLocation", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WorkLog` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  workLog_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WorkLog_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WorkLog", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WorkLogTarget` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  workLogTarget_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WorkLogTarget_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WorkLogTarget", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `WorkMaterialUsage` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  workMaterialUsage_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: WorkMaterialUsage_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "WorkMaterialUsage", purpose: DELETE_MULTIPLE)
+}

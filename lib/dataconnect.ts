@@ -13,23 +13,40 @@
 import { getDataConnect, connectDataConnectEmulator } from "firebase/data-connect";
 import { app } from "./firebase";
 
-let _dataConnect: ReturnType<typeof getDataConnect> | null = null;
+const DATACONNECT_EMULATOR_HOST =
+  process.env.NEXT_PUBLIC_DATACONNECT_EMULATOR_HOST ?? "localhost";
+const DATACONNECT_EMULATOR_PORT = Number(
+  process.env.NEXT_PUBLIC_DATACONNECT_EMULATOR_PORT ?? "9400"
+);
+
+type DataConnectClient = ReturnType<typeof getDataConnect>;
+
+declare global {
+  var __agriDataConnectClient: DataConnectClient | undefined;
+  var __agriDataConnectEmulatorEnabled: boolean | undefined;
+}
 
 export function getDataConnectClient() {
-  if (!_dataConnect) {
-    _dataConnect = getDataConnect(app, {
+  if (!globalThis.__agriDataConnectClient) {
+    globalThis.__agriDataConnectClient = getDataConnect(app, {
       connector: "example",
       location: "asia-northeast1",
       service: "agri-ai-saas-service",
     });
-
-    if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
-      try {
-        connectDataConnectEmulator(_dataConnect, "localhost", 9399);
-      } catch {
-        // already connected
-      }
-    }
   }
-  return _dataConnect;
+
+  if (
+    process.env.NODE_ENV === "development" &&
+    typeof window !== "undefined" &&
+    !globalThis.__agriDataConnectEmulatorEnabled
+  ) {
+    connectDataConnectEmulator(
+      globalThis.__agriDataConnectClient,
+      DATACONNECT_EMULATOR_HOST,
+      DATACONNECT_EMULATOR_PORT
+    );
+    globalThis.__agriDataConnectEmulatorEnabled = true;
+  }
+
+  return globalThis.__agriDataConnectClient;
 }

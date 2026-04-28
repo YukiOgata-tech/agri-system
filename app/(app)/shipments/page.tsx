@@ -17,13 +17,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useAgriApp } from "@/components/providers/agri-app-provider";
-import { formatCurrency, formatDate } from "@/lib/utils";
-import { getCropLabel } from "@/lib/agri-mock-data";
+import { formatCurrency, formatDate, getCurrentDateInputValue } from "@/lib/utils";
 
 const shipmentSchema = z.object({
-  productionUnitId: z.string().min(1, "生産単位を選択してください"),
+  productionUnitId: z.string().min(1, "生産エリアを選択してください"),
   cultivationCycleId: z.string().min(1, "作付を選択してください"),
-  cropTypeId: z.enum(["strawberry", "tomato", "komatsuna"]),
+  cropTypeId: z.string().min(1, "作物を選択してください"),
   harvestRecordId: z.string().min(1, "収穫ロットを選択してください"),
   shipmentDate: z.string().min(1, "出荷日を入力してください"),
   shipmentLotCode: z.string().min(1, "出荷ロットを入力してください"),
@@ -40,6 +39,13 @@ const shipmentSchema = z.object({
 
 type ShipmentForm = z.infer<typeof shipmentSchema>;
 
+function getDefaultShipmentValues(): Partial<ShipmentForm> {
+  return {
+    shipmentDate: getCurrentDateInputValue(),
+    packageUnit: "箱",
+  };
+}
+
 export default function ShipmentsPage() {
   const {
     selectedCropId,
@@ -48,6 +54,7 @@ export default function ShipmentsPage() {
     harvestRecords,
     shipmentRecords,
     addShipmentRecord,
+    getCropLabel,
     matchesSelectedCrop,
     getUnitById,
     getCycleById,
@@ -55,7 +62,7 @@ export default function ShipmentsPage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const form = useForm<ShipmentForm>({
     resolver: zodResolver(shipmentSchema) as Resolver<ShipmentForm>,
-    defaultValues: { shipmentDate: "2026-04-24", packageUnit: "箱" },
+    defaultValues: getDefaultShipmentValues(),
   });
 
   const scopedCycles = cultivationCycles.filter((cycle) => matchesSelectedCrop(cycle.cropTypeId));
@@ -64,11 +71,17 @@ export default function ShipmentsPage() {
   const totalRevenue = scopedShipments.reduce((sum, record) => sum + record.revenueAmount, 0);
   const totalWeight = scopedShipments.reduce((sum, record) => sum + record.normalizedWeightKg, 0);
 
-  const onSubmit = (values: ShipmentForm) => {
-    addShipmentRecord(values);
-    toast.success("出荷記録を保存しました");
-    setDialogOpen(false);
-    form.reset({ shipmentDate: "2026-04-24", packageUnit: values.packageUnit });
+  const onSubmit = async (values: ShipmentForm) => {
+    try {
+      await addShipmentRecord(values);
+      toast.success("出荷記録を保存しました");
+      setDialogOpen(false);
+      form.reset({ ...getDefaultShipmentValues(), packageUnit: values.packageUnit });
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "出荷記録の保存に失敗しました"
+      );
+    }
   };
 
   return (
@@ -84,7 +97,12 @@ export default function ShipmentsPage() {
               <Download className="mr-2 h-4 w-4" />
               CSV
             </Button>
-            <Button onClick={() => setDialogOpen(true)}>
+            <Button
+              onClick={() => {
+                form.reset(getDefaultShipmentValues());
+                setDialogOpen(true);
+              }}
+            >
               <Plus className="mr-2 h-4 w-4" />
               記録追加
             </Button>
@@ -150,7 +168,7 @@ export default function ShipmentsPage() {
                   <thead>
                     <tr className="border-b border-border bg-muted/40 text-left text-muted-foreground">
                       <th className="px-3 py-3">出荷日</th>
-                      <th className="px-3 py-3">生産単位</th>
+                      <th className="px-3 py-3">生産エリア</th>
                       <th className="px-3 py-3">出荷ロット</th>
                       <th className="px-3 py-3">収穫ロット</th>
                       <th className="px-3 py-3 text-right">数量</th>
@@ -194,7 +212,7 @@ export default function ShipmentsPage() {
           <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="grid gap-1.5">
-                <Label>生産単位</Label>
+                <Label>生産エリア</Label>
                 <Select onValueChange={(value) => form.setValue("productionUnitId", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="選択してください" />

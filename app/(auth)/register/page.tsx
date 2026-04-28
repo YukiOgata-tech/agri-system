@@ -42,7 +42,7 @@ export default function RegisterPage() {
     try {
       await signUp(email, password, displayName);
       toast.success("アカウントを作成しました");
-      router.replace("/dashboard");
+      router.replace("/");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "登録に失敗しました";
       toast.error(message.includes("email-already-in-use") ? "このメールアドレスは既に使用されています" : message);
@@ -55,7 +55,7 @@ export default function RegisterPage() {
     setGoogleLoading(true);
     try {
       await signInWithGoogle();
-      router.replace("/dashboard");
+      router.replace("/");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Googleログインに失敗しました";
       if (!message.includes("popup-closed-by-user")) {

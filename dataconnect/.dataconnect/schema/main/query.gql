@@ -1,0 +1,1645 @@
+extend type Query {
+  """
+  ✨ Look up a single `AnalysisInput` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  analysisInput(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisInput_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisInput_FirstRow
+  ): AnalysisInput @fdc_generated(from: "AnalysisInput", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `AnalysisOutput` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  analysisOutput(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisOutput_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisOutput_FirstRow
+  ): AnalysisOutput @fdc_generated(from: "AnalysisOutput", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `AnalysisRun` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  analysisRun(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: AnalysisRun_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: AnalysisRun_FirstRow
+  ): AnalysisRun @fdc_generated(from: "AnalysisRun", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `CropStageEvent` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  cropStageEvent(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropStageEvent_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropStageEvent_FirstRow
+  ): CropStageEvent @fdc_generated(from: "CropStageEvent", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `CropType` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  cropType(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropType_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropType_FirstRow
+  ): CropType @fdc_generated(from: "CropType", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `CropVariety` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  cropVariety(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CropVariety_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CropVariety_FirstRow
+  ): CropVariety @fdc_generated(from: "CropVariety", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `CultivationCycle` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  cultivationCycle(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: CultivationCycle_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: CultivationCycle_FirstRow
+  ): CultivationCycle @fdc_generated(from: "CultivationCycle", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `DailyProductionReport` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  dailyProductionReport(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: DailyProductionReport_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: DailyProductionReport_FirstRow
+  ): DailyProductionReport @fdc_generated(from: "DailyProductionReport", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `DiseasePestIncident` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  diseasePestIncident(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: DiseasePestIncident_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: DiseasePestIncident_FirstRow
+  ): DiseasePestIncident @fdc_generated(from: "DiseasePestIncident", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Farm` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  farm(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Farm_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Farm_FirstRow
+  ): Farm @fdc_generated(from: "Farm", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `GrowthObservation` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  growthObservation(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: GrowthObservation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: GrowthObservation_FirstRow
+  ): GrowthObservation @fdc_generated(from: "GrowthObservation", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `HarvestRecord` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  harvestRecord(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: HarvestRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: HarvestRecord_FirstRow
+  ): HarvestRecord @fdc_generated(from: "HarvestRecord", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `InputMaterial` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  inputMaterial(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: InputMaterial_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: InputMaterial_FirstRow
+  ): InputMaterial @fdc_generated(from: "InputMaterial", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `InventoryTransaction` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  inventoryTransaction(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: InventoryTransaction_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: InventoryTransaction_FirstRow
+  ): InventoryTransaction @fdc_generated(from: "InventoryTransaction", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `IrrigationLog` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  irrigationLog(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: IrrigationLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: IrrigationLog_FirstRow
+  ): IrrigationLog @fdc_generated(from: "IrrigationLog", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `MaterialLot` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  materialLot(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: MaterialLot_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: MaterialLot_FirstRow
+  ): MaterialLot @fdc_generated(from: "MaterialLot", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ObservationAttachment` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  observationAttachment(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ObservationAttachment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ObservationAttachment_FirstRow
+  ): ObservationAttachment @fdc_generated(from: "ObservationAttachment", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Organization` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  organization(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Organization_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Organization_FirstRow
+  ): Organization @fdc_generated(from: "Organization", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `OrganizationCropSetting` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  organizationCropSetting(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OrganizationCropSetting_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OrganizationCropSetting_FirstRow
+  ): OrganizationCropSetting @fdc_generated(from: "OrganizationCropSetting", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `OrganizationMember` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  organizationMember(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: OrganizationMember_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: OrganizationMember_FirstRow
+  ): OrganizationMember @fdc_generated(from: "OrganizationMember", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ProductionUnit` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  productionUnit(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ProductionUnit_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProductionUnit_FirstRow
+  ): ProductionUnit @fdc_generated(from: "ProductionUnit", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ProductionUnitEnvironmentLog` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  productionUnitEnvironmentLog(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ProductionUnitEnvironmentLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProductionUnitEnvironmentLog_FirstRow
+  ): ProductionUnitEnvironmentLog @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ShipmentRecord` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  shipmentRecord(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: ShipmentRecord_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ShipmentRecord_FirstRow
+  ): ShipmentRecord @fdc_generated(from: "ShipmentRecord", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `UserPreference` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  userPreference(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: UserPreference_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: UserPreference_FirstRow
+  ): UserPreference @fdc_generated(from: "UserPreference", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WeatherDaily` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  weatherDaily(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherDaily_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherDaily_FirstRow
+  ): WeatherDaily @fdc_generated(from: "WeatherDaily", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WeatherForecast` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  weatherForecast(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherForecast_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherForecast_FirstRow
+  ): WeatherForecast @fdc_generated(from: "WeatherForecast", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WeatherLocation` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  weatherLocation(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WeatherLocation_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WeatherLocation_FirstRow
+  ): WeatherLocation @fdc_generated(from: "WeatherLocation", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WorkLog` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  workLog(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLog_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLog_FirstRow
+  ): WorkLog @fdc_generated(from: "WorkLog", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WorkLogTarget` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  workLogTarget(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkLogTarget_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkLogTarget_FirstRow
+  ): WorkLogTarget @fdc_generated(from: "WorkLogTarget", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `WorkMaterialUsage` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  workMaterialUsage(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: WorkMaterialUsage_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: WorkMaterialUsage_FirstRow
+  ): WorkMaterialUsage @fdc_generated(from: "WorkMaterialUsage", purpose: QUERY_SINGLE)
+  """
+  ✨ List `AnalysisInput` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  analysisInputs(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AnalysisInput_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AnalysisInput_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AnalysisInput_Having
+  ): [AnalysisInput!]! @fdc_generated(from: "AnalysisInput", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `AnalysisOutput` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  analysisOutputs(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AnalysisOutput_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AnalysisOutput_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AnalysisOutput_Having
+  ): [AnalysisOutput!]! @fdc_generated(from: "AnalysisOutput", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `AnalysisRun` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  analysisRuns(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: AnalysisRun_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [AnalysisRun_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: AnalysisRun_Having
+  ): [AnalysisRun!]! @fdc_generated(from: "AnalysisRun", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `CropStageEvent` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  cropStageEvents(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: CropStageEvent_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [CropStageEvent_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: CropStageEvent_Having
+  ): [CropStageEvent!]! @fdc_generated(from: "CropStageEvent", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `CropType` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  cropTypes(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: CropType_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [CropType_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: CropType_Having
+  ): [CropType!]! @fdc_generated(from: "CropType", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `CropVariety` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  cropVarieties(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: CropVariety_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [CropVariety_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: CropVariety_Having
+  ): [CropVariety!]! @fdc_generated(from: "CropVariety", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `CultivationCycle` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  cultivationCycles(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: CultivationCycle_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [CultivationCycle_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: CultivationCycle_Having
+  ): [CultivationCycle!]! @fdc_generated(from: "CultivationCycle", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `DailyProductionReport` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  dailyProductionReports(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: DailyProductionReport_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [DailyProductionReport_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: DailyProductionReport_Having
+  ): [DailyProductionReport!]! @fdc_generated(from: "DailyProductionReport", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `DiseasePestIncident` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  diseasePestIncidents(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: DiseasePestIncident_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [DiseasePestIncident_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: DiseasePestIncident_Having
+  ): [DiseasePestIncident!]! @fdc_generated(from: "DiseasePestIncident", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Farm` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  farms(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Farm_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Farm_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Farm_Having
+  ): [Farm!]! @fdc_generated(from: "Farm", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `GrowthObservation` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  growthObservations(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: GrowthObservation_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [GrowthObservation_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: GrowthObservation_Having
+  ): [GrowthObservation!]! @fdc_generated(from: "GrowthObservation", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `HarvestRecord` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  harvestRecords(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: HarvestRecord_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [HarvestRecord_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: HarvestRecord_Having
+  ): [HarvestRecord!]! @fdc_generated(from: "HarvestRecord", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `InputMaterial` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  inputMaterials(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: InputMaterial_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [InputMaterial_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: InputMaterial_Having
+  ): [InputMaterial!]! @fdc_generated(from: "InputMaterial", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `InventoryTransaction` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  inventoryTransactions(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: InventoryTransaction_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [InventoryTransaction_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: InventoryTransaction_Having
+  ): [InventoryTransaction!]! @fdc_generated(from: "InventoryTransaction", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `IrrigationLog` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  irrigationLogs(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: IrrigationLog_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [IrrigationLog_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: IrrigationLog_Having
+  ): [IrrigationLog!]! @fdc_generated(from: "IrrigationLog", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `MaterialLot` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  materialLots(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: MaterialLot_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [MaterialLot_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: MaterialLot_Having
+  ): [MaterialLot!]! @fdc_generated(from: "MaterialLot", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ObservationAttachment` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  observationAttachments(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ObservationAttachment_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ObservationAttachment_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ObservationAttachment_Having
+  ): [ObservationAttachment!]! @fdc_generated(from: "ObservationAttachment", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Organization` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  organizations(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Organization_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Organization_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Organization_Having
+  ): [Organization!]! @fdc_generated(from: "Organization", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `OrganizationCropSetting` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  organizationCropSettings(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: OrganizationCropSetting_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [OrganizationCropSetting_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: OrganizationCropSetting_Having
+  ): [OrganizationCropSetting!]! @fdc_generated(from: "OrganizationCropSetting", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `OrganizationMember` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  organizationMembers(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: OrganizationMember_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [OrganizationMember_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: OrganizationMember_Having
+  ): [OrganizationMember!]! @fdc_generated(from: "OrganizationMember", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ProductionUnit` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  productionUnits(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ProductionUnit_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ProductionUnit_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ProductionUnit_Having
+  ): [ProductionUnit!]! @fdc_generated(from: "ProductionUnit", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ProductionUnitEnvironmentLog` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  productionUnitEnvironmentLogs(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ProductionUnitEnvironmentLog_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ProductionUnitEnvironmentLog_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ProductionUnitEnvironmentLog_Having
+  ): [ProductionUnitEnvironmentLog!]! @fdc_generated(from: "ProductionUnitEnvironmentLog", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ShipmentRecord` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  shipmentRecords(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ShipmentRecord_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ShipmentRecord_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ShipmentRecord_Having
+  ): [ShipmentRecord!]! @fdc_generated(from: "ShipmentRecord", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `UserPreference` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  userPreferences(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: UserPreference_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [UserPreference_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: UserPreference_Having
+  ): [UserPreference!]! @fdc_generated(from: "UserPreference", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WeatherDaily` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  weatherDailies(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WeatherDaily_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WeatherDaily_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WeatherDaily_Having
+  ): [WeatherDaily!]! @fdc_generated(from: "WeatherDaily", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WeatherForecast` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  weatherForecasts(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WeatherForecast_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WeatherForecast_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WeatherForecast_Having
+  ): [WeatherForecast!]! @fdc_generated(from: "WeatherForecast", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WeatherLocation` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  weatherLocations(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WeatherLocation_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WeatherLocation_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WeatherLocation_Having
+  ): [WeatherLocation!]! @fdc_generated(from: "WeatherLocation", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WorkLog` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  workLogs(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WorkLog_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WorkLog_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WorkLog_Having
+  ): [WorkLog!]! @fdc_generated(from: "WorkLog", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WorkLogTarget` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  workLogTargets(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WorkLogTarget_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WorkLogTarget_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WorkLogTarget_Having
+  ): [WorkLogTarget!]! @fdc_generated(from: "WorkLogTarget", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `WorkMaterialUsage` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  workMaterialUsages(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: WorkMaterialUsage_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [WorkMaterialUsage_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: WorkMaterialUsage_Having
+  ): [WorkMaterialUsage!]! @fdc_generated(from: "WorkMaterialUsage", purpose: QUERY_MULTIPLE)
+}

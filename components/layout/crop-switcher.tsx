@@ -21,9 +21,9 @@ export function CropSwitcher({ compact = false }: CropSwitcherProps) {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              Crop View
+              作物表示
             </p>
-            <p className="text-sm font-medium text-foreground">作物ごとの表示切り替え</p>
+            <p className="text-sm font-medium text-foreground">作物ごとに表示を切り替え</p>
           </div>
         </div>
       ) : null}
@@ -53,7 +53,7 @@ export function CropSwitcher({ compact = false }: CropSwitcherProps) {
             <span className="font-medium">{crop.name}</span>
             {!compact && (
               <Badge variant="outline" className="ml-2 border-current/25 bg-transparent text-[10px]">
-                {crop.pricingTier}
+                {crop.aiEnabled ? crop.pricingTier : "記録無料"}
               </Badge>
             )}
           </button>

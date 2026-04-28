@@ -1,5 +1,11 @@
-export type CropId = "strawberry" | "tomato" | "komatsuna";
+import {
+  addDaysToDateInputValue,
+  getCurrentDateInputValue,
+} from "@/lib/utils";
+
+export type CropId = string;
 export type CropSelection = CropId | "all";
+export type CropAiPlan = "none" | "lite" | "pro";
 
 export type CropOption = {
   id: CropId;
@@ -119,6 +125,8 @@ export type WorkLog = {
   productionUnitId: string;
   cultivationCycleId: string;
   cropTypeId: CropId;
+  copiedFromWorkLogId?: string;
+  inputBatchId?: string;
   workDate: string;
   workType:
     | "irrigation"
@@ -147,6 +155,8 @@ export type EnvironmentLog = {
   productionUnitId: string;
   cultivationCycleId: string;
   cropTypeId: CropId;
+  copiedFromEnvironmentLogId?: string;
+  inputBatchId?: string;
   observedAt: string;
   temperatureC: number;
   humidityPct: number;
@@ -174,7 +184,7 @@ export type DiseaseIncident = {
   note?: string;
 };
 
-export const cropOptions: CropOption[] = [
+export const initialCropOptions: CropOption[] = [
   {
     id: "strawberry",
     code: "STR",
@@ -192,7 +202,7 @@ export const cropOptions: CropOption[] = [
     name: "トマト",
     accentClass: "text-orange-700",
     surfaceClass: "bg-orange-100 text-orange-800 border-orange-200",
-    pricingTier: "Record Plus",
+    pricingTier: "AI Lite",
     aiEnabled: true,
     defaultYieldUnit: "kg",
     defaultShipmentUnit: "ケース",
@@ -203,12 +213,76 @@ export const cropOptions: CropOption[] = [
     name: "小松菜",
     accentClass: "text-lime-700",
     surfaceClass: "bg-lime-100 text-lime-800 border-lime-200",
-    pricingTier: "Record",
+    pricingTier: "未契約",
     aiEnabled: false,
     defaultYieldUnit: "束",
     defaultShipmentUnit: "ケース",
   },
 ];
+
+const cropStylePresets = [
+  { accentClass: "text-rose-700", surfaceClass: "bg-rose-100 text-rose-800 border-rose-200" },
+  { accentClass: "text-orange-700", surfaceClass: "bg-orange-100 text-orange-800 border-orange-200" },
+  { accentClass: "text-lime-700", surfaceClass: "bg-lime-100 text-lime-800 border-lime-200" },
+  { accentClass: "text-sky-700", surfaceClass: "bg-sky-100 text-sky-800 border-sky-200" },
+  { accentClass: "text-violet-700", surfaceClass: "bg-violet-100 text-violet-800 border-violet-200" },
+  { accentClass: "text-amber-700", surfaceClass: "bg-amber-100 text-amber-800 border-amber-200" },
+  { accentClass: "text-emerald-700", surfaceClass: "bg-emerald-100 text-emerald-800 border-emerald-200" },
+  { accentClass: "text-cyan-700", surfaceClass: "bg-cyan-100 text-cyan-800 border-cyan-200" },
+];
+
+export function getCropStylePreset(index: number) {
+  return cropStylePresets[index % cropStylePresets.length]!;
+}
+
+export function getAiPlanLabel(plan: CropAiPlan) {
+  switch (plan) {
+    case "lite":
+      return "AI Lite";
+    case "pro":
+      return "AI Pro";
+    case "none":
+    default:
+      return "未契約";
+  }
+}
+
+export function getCropPricingSummary(crop: CropOption) {
+  return `記録 無料 / AI ${crop.aiEnabled ? crop.pricingTier : "未契約"}`;
+}
+
+export function createCropCode(name: string, index: number) {
+  const normalized = name
+    .normalize("NFKC")
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "")
+    .slice(0, 4);
+  return normalized || `C${index + 1}`;
+}
+
+const TODAY = getCurrentDateInputValue();
+const YESTERDAY = addDaysToDateInputValue(TODAY, -1);
+const TWO_DAYS_AGO = addDaysToDateInputValue(TODAY, -2);
+const THREE_DAYS_AGO = addDaysToDateInputValue(TODAY, -3);
+const TEN_DAYS_AGO = addDaysToDateInputValue(TODAY, -10);
+const TWENTY_SEVEN_DAYS_AGO = addDaysToDateInputValue(TODAY, -27);
+const THIRTY_TWO_DAYS_AGO = addDaysToDateInputValue(TODAY, -32);
+const NINETY_FIVE_DAYS_AGO = addDaysToDateInputValue(TODAY, -95);
+const ONE_HUNDRED_TEN_DAYS_AGO = addDaysToDateInputValue(TODAY, -110);
+const ONE_HUNDRED_FORTY_DAYS_AGO = addDaysToDateInputValue(TODAY, -140);
+const TWO_HUNDRED_NINETEEN_DAYS_AGO = addDaysToDateInputValue(TODAY, -219);
+const TWO_HUNDRED_TWENTY_SIX_DAYS_AGO = addDaysToDateInputValue(TODAY, -226);
+const NINETEEN_DAYS_LATER = addDaysToDateInputValue(TODAY, 19);
+const TWENTY_ONE_DAYS_LATER = addDaysToDateInputValue(TODAY, 21);
+const THIRTY_TWO_DAYS_LATER = addDaysToDateInputValue(TODAY, 32);
+const ONE_HUNDRED_TWENTY_THREE_DAYS_LATER = addDaysToDateInputValue(TODAY, 123);
+
+const TODAY_AT_1000 = `${TODAY}T10:00`;
+const TODAY_AT_0930 = `${TODAY}T09:30`;
+
+function toMonthDayCode(value: string) {
+  return `${value.slice(5, 7)}${value.slice(8, 10)}`;
+}
 
 export const initialProductionUnits: ProductionUnit[] = [
   {
@@ -295,10 +369,10 @@ export const initialCultivationCycles: CultivationCycle[] = [
     varietyName: "紅ほっぺ",
     cycleName: "2026 冬春いちご",
     status: "active",
-    startDate: "2025-09-15",
-    plantingDate: "2025-09-22",
-    expectedHarvestStartDate: "2025-12-10",
-    expectedHarvestEndDate: "2026-05-31",
+    startDate: TWO_HUNDRED_TWENTY_SIX_DAYS_AGO,
+    plantingDate: TWO_HUNDRED_NINETEEN_DAYS_AGO,
+    expectedHarvestStartDate: ONE_HUNDRED_FORTY_DAYS_AGO,
+    expectedHarvestEndDate: THIRTY_TWO_DAYS_LATER,
     primaryRecordUnit: "kg",
     secondaryRecordUnit: "パック",
     shipmentUnit: "箱",
@@ -314,10 +388,10 @@ export const initialCultivationCycles: CultivationCycle[] = [
     varietyName: "麗夏",
     cycleName: "2026 春夏トマト",
     status: "active",
-    startDate: "2026-01-10",
-    plantingDate: "2026-01-25",
-    expectedHarvestStartDate: "2026-04-20",
-    expectedHarvestEndDate: "2026-08-30",
+    startDate: ONE_HUNDRED_TEN_DAYS_AGO,
+    plantingDate: NINETY_FIVE_DAYS_AGO,
+    expectedHarvestStartDate: TEN_DAYS_AGO,
+    expectedHarvestEndDate: ONE_HUNDRED_TWENTY_THREE_DAYS_LATER,
     primaryRecordUnit: "kg",
     secondaryRecordUnit: "ケース",
     shipmentUnit: "ケース",
@@ -332,10 +406,10 @@ export const initialCultivationCycles: CultivationCycle[] = [
     varietyName: "浜美2号",
     cycleName: "2026 初夏小松菜",
     status: "active",
-    startDate: "2026-03-28",
-    plantingDate: "2026-03-29",
-    expectedHarvestStartDate: "2026-04-26",
-    expectedHarvestEndDate: "2026-05-18",
+    startDate: THIRTY_TWO_DAYS_AGO,
+    plantingDate: addDaysToDateInputValue(TODAY, -31),
+    expectedHarvestStartDate: THREE_DAYS_AGO,
+    expectedHarvestEndDate: NINETEEN_DAYS_LATER,
     primaryRecordUnit: "束",
     secondaryRecordUnit: "kg",
     shipmentUnit: "ケース",
@@ -350,10 +424,10 @@ export const initialCultivationCycles: CultivationCycle[] = [
     varietyName: "浜美2号",
     cycleName: "2026 露地小松菜 1作目",
     status: "active",
-    startDate: "2026-04-02",
-    plantingDate: "2026-04-03",
-    expectedHarvestStartDate: "2026-04-29",
-    expectedHarvestEndDate: "2026-05-20",
+    startDate: TWENTY_SEVEN_DAYS_AGO,
+    plantingDate: addDaysToDateInputValue(TODAY, -26),
+    expectedHarvestStartDate: TODAY,
+    expectedHarvestEndDate: TWENTY_ONE_DAYS_LATER,
     primaryRecordUnit: "束",
     secondaryRecordUnit: "kg",
     shipmentUnit: "ケース",
@@ -369,8 +443,8 @@ export const initialHarvestRecords: HarvestRecord[] = [
     productionUnitId: "pu-gh-a",
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
-    lotCode: "ST-A-0424-AM",
-    harvestDate: "2026-04-24",
+    lotCode: `ST-A-${toMonthDayCode(TODAY)}-AM`,
+    harvestDate: TODAY,
     quantityValue: 26.8,
     quantityUnit: "kg",
     normalizedWeightKg: 26.8,
@@ -384,8 +458,8 @@ export const initialHarvestRecords: HarvestRecord[] = [
     productionUnitId: "pu-gh-a",
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
-    lotCode: "ST-A-0423-AM",
-    harvestDate: "2026-04-23",
+    lotCode: `ST-A-${toMonthDayCode(YESTERDAY)}-AM`,
+    harvestDate: YESTERDAY,
     quantityValue: 24.3,
     quantityUnit: "kg",
     normalizedWeightKg: 24.3,
@@ -399,8 +473,8 @@ export const initialHarvestRecords: HarvestRecord[] = [
     productionUnitId: "pu-gh-b",
     cultivationCycleId: "cycle-tm-2026-b",
     cropTypeId: "tomato",
-    lotCode: "TM-B-0424-PM",
-    harvestDate: "2026-04-24",
+    lotCode: `TM-B-${toMonthDayCode(TODAY)}-PM`,
+    harvestDate: TODAY,
     quantityValue: 38.4,
     quantityUnit: "kg",
     normalizedWeightKg: 38.4,
@@ -414,8 +488,8 @@ export const initialHarvestRecords: HarvestRecord[] = [
     productionUnitId: "pu-gh-c",
     cultivationCycleId: "cycle-km-2026-c",
     cropTypeId: "komatsuna",
-    lotCode: "KM-C-0424-AM",
-    harvestDate: "2026-04-24",
+    lotCode: `KM-C-${toMonthDayCode(TODAY)}-AM`,
+    harvestDate: TODAY,
     quantityValue: 320,
     quantityUnit: "束",
     normalizedWeightKg: 64,
@@ -429,8 +503,8 @@ export const initialHarvestRecords: HarvestRecord[] = [
     productionUnitId: "pu-field-2",
     cultivationCycleId: "cycle-km-2026-field",
     cropTypeId: "komatsuna",
-    lotCode: "KM-F2-0423-AM",
-    harvestDate: "2026-04-23",
+    lotCode: `KM-F2-${toMonthDayCode(YESTERDAY)}-AM`,
+    harvestDate: YESTERDAY,
     quantityValue: 520,
     quantityUnit: "束",
     normalizedWeightKg: 104,
@@ -448,8 +522,8 @@ export const initialShipmentRecords: ShipmentRecord[] = [
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
     harvestRecordId: "harv-1",
-    shipmentDate: "2026-04-24",
-    shipmentLotCode: "OUT-ST-A-0424-01",
+    shipmentDate: TODAY,
+    shipmentLotCode: `OUT-ST-A-${toMonthDayCode(TODAY)}-01`,
     quantityValue: 42,
     quantityUnit: "箱",
     normalizedWeightKg: 25.2,
@@ -465,8 +539,8 @@ export const initialShipmentRecords: ShipmentRecord[] = [
     cultivationCycleId: "cycle-tm-2026-b",
     cropTypeId: "tomato",
     harvestRecordId: "harv-3",
-    shipmentDate: "2026-04-24",
-    shipmentLotCode: "OUT-TM-B-0424-01",
+    shipmentDate: TODAY,
+    shipmentLotCode: `OUT-TM-B-${toMonthDayCode(TODAY)}-01`,
     quantityValue: 10,
     quantityUnit: "ケース",
     normalizedWeightKg: 32,
@@ -482,8 +556,8 @@ export const initialShipmentRecords: ShipmentRecord[] = [
     cultivationCycleId: "cycle-km-2026-c",
     cropTypeId: "komatsuna",
     harvestRecordId: "harv-4",
-    shipmentDate: "2026-04-24",
-    shipmentLotCode: "OUT-KM-C-0424-01",
+    shipmentDate: TODAY,
+    shipmentLotCode: `OUT-KM-C-${toMonthDayCode(TODAY)}-01`,
     quantityValue: 16,
     quantityUnit: "ケース",
     normalizedWeightKg: 64,
@@ -554,7 +628,7 @@ export const initialWorkLogs: WorkLog[] = [
     productionUnitId: "pu-gh-a",
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
-    workDate: "2026-04-24",
+    workDate: TODAY,
     workType: "harvest",
     durationMinutes: 140,
     workerCount: 4,
@@ -567,7 +641,7 @@ export const initialWorkLogs: WorkLog[] = [
     productionUnitId: "pu-gh-a",
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
-    workDate: "2026-04-24",
+    workDate: TODAY,
     workType: "pesticide",
     durationMinutes: 45,
     workerCount: 2,
@@ -581,7 +655,7 @@ export const initialWorkLogs: WorkLog[] = [
     productionUnitId: "pu-gh-b",
     cultivationCycleId: "cycle-tm-2026-b",
     cropTypeId: "tomato",
-    workDate: "2026-04-24",
+    workDate: TODAY,
     workType: "fertigation",
     durationMinutes: 35,
     workerCount: 1,
@@ -600,7 +674,7 @@ export const initialWorkLogs: WorkLog[] = [
     productionUnitId: "pu-gh-c",
     cultivationCycleId: "cycle-km-2026-c",
     cropTypeId: "komatsuna",
-    workDate: "2026-04-24",
+    workDate: TODAY,
     workType: "harvest",
     durationMinutes: 90,
     workerCount: 3,
@@ -613,7 +687,7 @@ export const initialWorkLogs: WorkLog[] = [
     productionUnitId: "pu-field-2",
     cultivationCycleId: "cycle-km-2026-field",
     cropTypeId: "komatsuna",
-    workDate: "2026-04-23",
+    workDate: YESTERDAY,
     workType: "irrigation",
     durationMinutes: 50,
     workerCount: 1,
@@ -633,7 +707,7 @@ export const initialEnvironmentLogs: EnvironmentLog[] = [
     productionUnitId: "pu-gh-a",
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
-    observedAt: "2026-04-24T10:00",
+    observedAt: TODAY_AT_1000,
     temperatureC: 22.6,
     humidityPct: 76,
     co2Ppm: 420,
@@ -648,7 +722,7 @@ export const initialEnvironmentLogs: EnvironmentLog[] = [
     productionUnitId: "pu-gh-b",
     cultivationCycleId: "cycle-tm-2026-b",
     cropTypeId: "tomato",
-    observedAt: "2026-04-24T10:00",
+    observedAt: TODAY_AT_1000,
     temperatureC: 25.1,
     humidityPct: 69,
     co2Ppm: 460,
@@ -663,7 +737,7 @@ export const initialEnvironmentLogs: EnvironmentLog[] = [
     productionUnitId: "pu-gh-c",
     cultivationCycleId: "cycle-km-2026-c",
     cropTypeId: "komatsuna",
-    observedAt: "2026-04-24T10:00",
+    observedAt: TODAY_AT_1000,
     temperatureC: 19.8,
     humidityPct: 82,
     co2Ppm: 390,
@@ -679,7 +753,7 @@ export const initialEnvironmentLogs: EnvironmentLog[] = [
     productionUnitId: "pu-field-2",
     cultivationCycleId: "cycle-km-2026-field",
     cropTypeId: "komatsuna",
-    observedAt: "2026-04-24T09:30",
+    observedAt: TODAY_AT_0930,
     temperatureC: 18.7,
     humidityPct: 74,
     co2Ppm: 370,
@@ -697,7 +771,7 @@ export const initialDiseaseIncidents: DiseaseIncident[] = [
     productionUnitId: "pu-gh-a",
     cultivationCycleId: "cycle-st-2026-a",
     cropTypeId: "strawberry",
-    occurredOn: "2026-04-23",
+    occurredOn: YESTERDAY,
     category: "disease",
     name: "灰色かび病",
     severityLevel: 3,
@@ -710,20 +784,20 @@ export const initialDiseaseIncidents: DiseaseIncident[] = [
     productionUnitId: "pu-gh-b",
     cultivationCycleId: "cycle-tm-2026-b",
     cropTypeId: "tomato",
-    occurredOn: "2026-04-21",
+    occurredOn: THREE_DAYS_AGO,
     category: "pest",
     name: "コナジラミ",
     severityLevel: 2,
     affectedAreaRatio: 7,
     actionTaken: "黄板追加",
-    resolvedOn: "2026-04-23",
+    resolvedOn: YESTERDAY,
   },
   {
     id: "dis-3",
     productionUnitId: "pu-field-2",
     cultivationCycleId: "cycle-km-2026-field",
     cropTypeId: "komatsuna",
-    occurredOn: "2026-04-22",
+    occurredOn: TWO_DAYS_AGO,
     category: "pest",
     name: "アブラムシ",
     severityLevel: 2,
@@ -732,14 +806,14 @@ export const initialDiseaseIncidents: DiseaseIncident[] = [
   },
 ];
 
-export function getCropById(cropId: CropSelection) {
+export function getCropById(crops: CropOption[], cropId: CropSelection) {
   if (cropId === "all") return null;
-  return cropOptions.find((crop) => crop.id === cropId) ?? null;
+  return crops.find((crop) => crop.id === cropId) ?? null;
 }
 
-export function getCropLabel(cropId: CropSelection) {
+export function getCropLabel(crops: CropOption[], cropId: CropSelection) {
   if (cropId === "all") return "全作物";
-  return getCropById(cropId)?.name ?? "不明";
+  return getCropById(crops, cropId)?.name ?? "不明";
 }
 
 export function getProductionUnitTypeLabel(type: ProductionUnitType) {

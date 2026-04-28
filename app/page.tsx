@@ -2,17 +2,17 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAppSession } from "@/components/providers/app-session-provider";
 
 export default function RootPage() {
-  const { user, loading } = useAuth();
+  const { authUser, loading, needsOnboarding } = useAppSession();
   const router = useRouter();
 
   useEffect(() => {
     if (!loading) {
-      router.replace(user ? "/dashboard" : "/login");
+      router.replace(authUser ? (needsOnboarding ? "/onboarding" : "/dashboard") : "/login");
     }
-  }, [user, loading, router]);
+  }, [authUser, loading, needsOnboarding, router]);
 
   return (
     <div className="flex h-screen items-center justify-center">

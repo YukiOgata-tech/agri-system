@@ -79,9 +79,9 @@ type Farm @table(name: "farms") {
 type ProductionUnit @table(name: "production_units") {
   id: UUID! @default(expr: "uuidV4()")
   farm: Farm!
-  parentUnit: ProductionUnit @col(name: "parent_unit_id")
+  parentUnit: ProductionUnit
   unitType: String! @col(name: "unit_type")
-  code: String
+  code: String @unique
   name: String!
   areaM2: Float @col(name: "area_m2")
   lengthM: Float @col(name: "length_m")
@@ -248,7 +248,7 @@ type WorkLog @table(name: "work_logs") {
   status: String! @default(expr: "'completed'")
   sourceType: String @col(name: "source_type") @default(expr: "'manual'")
   note: String
-  copiedFromWorkLog: WorkLog @col(name: "copied_from_work_log_id")
+  copiedFromWorkLog: WorkLog
   createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
   updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
 }

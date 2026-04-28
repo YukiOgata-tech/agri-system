@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Package2, Plus, Scale, Sparkles } from "lucide-react";
+import { Download, Mic, Package2, Plus, Scale, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type Resolver } from "react-hook-form";
@@ -16,14 +16,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { VoiceInputPanel, type GuidedStep } from "@/components/voice/voice-input-panel";
 import { useAgriApp } from "@/components/providers/agri-app-provider";
-import { formatDate } from "@/lib/utils";
-import { getCropLabel } from "@/lib/agri-mock-data";
+import { formatDate, getCurrentDateInputValue } from "@/lib/utils";
+import {
+  parseHarvestVoice,
+  harvestParseSummary,
+  matchProductionUnit,
+  matchQuantityKg,
+  matchWasteKg,
+  matchQualityGrade,
+  type ParseField,
+} from "@/lib/voice-parsers";
 
 const harvestSchema = z.object({
-  productionUnitId: z.string().min(1, "生産単位を選択してください"),
+  productionUnitId: z.string().min(1, "生産エリアを選択してください"),
   cultivationCycleId: z.string().min(1, "作付を選択してください"),
-  cropTypeId: z.enum(["strawberry", "tomato", "komatsuna"]),
+  cropTypeId: z.string().min(1, "作物を選択してください"),
   lotCode: z.string().min(1, "ロットコードを入力してください"),
   harvestDate: z.string().min(1, "収穫日を入力してください"),
   quantityValue: z.coerce.number().min(0.1, "数量を入力してください"),
@@ -38,6 +47,14 @@ const harvestSchema = z.object({
 
 type HarvestForm = z.infer<typeof harvestSchema>;
 
+function getDefaultHarvestValues(): Partial<HarvestForm> {
+  return {
+    harvestDate: getCurrentDateInputValue(),
+    qualityGrade: "A",
+    packageUnit: "箱",
+  };
+}
+
 export default function HarvestPage() {
   const {
     selectedCropId,
@@ -45,19 +62,17 @@ export default function HarvestPage() {
     cultivationCycles,
     harvestRecords,
     addHarvestRecord,
+    getCropLabel,
     matchesSelectedCrop,
     getUnitById,
     getCycleById,
   } = useAgriApp();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [unitFilter, setUnitFilter] = useState("all");
+  const [voiceFields, setVoiceFields] = useState<ParseField[] | undefined>();
   const form = useForm<HarvestForm>({
     resolver: zodResolver(harvestSchema) as Resolver<HarvestForm>,
-    defaultValues: {
-      harvestDate: "2026-04-24",
-      qualityGrade: "A",
-      packageUnit: "箱",
-    },
+    defaultValues: getDefaultHarvestValues(),
   });
 
   const scopedCycles = cultivationCycles.filter((cycle) => matchesSelectedCrop(cycle.cropTypeId));
@@ -69,15 +84,97 @@ export default function HarvestPage() {
   const totalPackages = scopedRecords.reduce((sum, record) => sum + record.packageCount, 0);
   const gradeACount = scopedRecords.filter((record) => ["A", "秀", "良"].includes(record.qualityGrade)).length;
 
-  const onSubmit = (values: HarvestForm) => {
-    addHarvestRecord(values);
-    toast.success("収穫記録を保存しました");
-    setDialogOpen(false);
-    form.reset({
-      harvestDate: "2026-04-24",
-      qualityGrade: values.qualityGrade,
-      packageUnit: values.packageUnit,
-    });
+  const guidedSteps: GuidedStep[] = [
+    {
+      key: "productionUnitId",
+      label: "生産エリア",
+      prompt: "生産エリアを言ってください",
+      example: "A棟、B棟、C棟",
+      apply: (t) => {
+        const unit = matchProductionUnit(t, productionUnits);
+        if (unit) form.setValue("productionUnitId", unit.id);
+        return unit?.name;
+      },
+    },
+    {
+      key: "quantityValue",
+      label: "収穫量",
+      prompt: "収穫量をキログラムで言ってください",
+      example: "12.5キロ、三十五キロ",
+      apply: (t) => {
+        const kg = matchQuantityKg(t);
+        if (kg !== undefined) {
+          form.setValue("quantityValue", kg);
+          form.setValue("normalizedWeightKg", kg);
+        }
+        return kg !== undefined ? `${kg} kg` : undefined;
+      },
+    },
+    {
+      key: "wasteWeightKg",
+      label: "廃棄重量",
+      prompt: "廃棄重量をキログラムで言ってください",
+      example: "廃棄2キロ、ロス1.5キロ",
+      optional: true,
+      apply: (t) => {
+        const kg = matchWasteKg(t);
+        if (kg !== undefined) form.setValue("wasteWeightKg", kg);
+        return kg !== undefined ? `${kg} kg` : undefined;
+      },
+    },
+    {
+      key: "qualityGrade",
+      label: "等級",
+      prompt: "等級を言ってください",
+      example: "A等級、B等級、秀",
+      optional: true,
+      apply: (t) => {
+        const grade = matchQualityGrade(t);
+        if (grade) form.setValue("qualityGrade", grade);
+        return grade;
+      },
+    },
+  ];
+
+  const handleVoiceTranscript = (transcript: string) => {
+    const parsed = parseHarvestVoice(transcript);
+    setVoiceFields(harvestParseSummary(parsed, productionUnits));
+
+    if (parsed.unitLetter) {
+      const unit = productionUnits.find((u) =>
+        u.name.toUpperCase().includes(parsed.unitLetter!) ||
+        u.code.toUpperCase().endsWith(parsed.unitLetter!) ||
+        u.code.toUpperCase().endsWith(`-${parsed.unitLetter!}`)
+      );
+      if (unit) form.setValue("productionUnitId", unit.id);
+    }
+    if (parsed.quantityKg !== undefined) {
+      form.setValue("quantityValue", parsed.quantityKg);
+      form.setValue("normalizedWeightKg", parsed.quantityKg);
+    }
+    if (parsed.wasteKg !== undefined) form.setValue("wasteWeightKg", parsed.wasteKg);
+    if (parsed.gradeAKg !== undefined) form.setValue("qualityGrade", "A");
+    else if (parsed.gradeBKg !== undefined) form.setValue("qualityGrade", "B");
+    else if (parsed.gradeCKg !== undefined) form.setValue("qualityGrade", "C");
+    if (parsed.notes) form.setValue("notes", parsed.notes);
+  };
+
+  const onSubmit = async (values: HarvestForm) => {
+    try {
+      await addHarvestRecord(values);
+      toast.success("収穫記録を保存しました");
+      setDialogOpen(false);
+      setVoiceFields(undefined);
+      form.reset({
+        ...getDefaultHarvestValues(),
+        qualityGrade: values.qualityGrade,
+        packageUnit: values.packageUnit,
+      });
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "収穫記録の保存に失敗しました"
+      );
+    }
   };
 
   return (
@@ -91,7 +188,7 @@ export default function HarvestPage() {
           <>
             <Select value={unitFilter} onValueChange={setUnitFilter}>
               <SelectTrigger className="w-44">
-                <SelectValue placeholder="生産単位" />
+                <SelectValue placeholder="生産エリア" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">すべての単位</SelectItem>
@@ -106,7 +203,13 @@ export default function HarvestPage() {
               <Download className="mr-2 h-4 w-4" />
               CSV
             </Button>
-            <Button onClick={() => setDialogOpen(true)}>
+            <Button
+              onClick={() => {
+                form.reset(getDefaultHarvestValues());
+                setVoiceFields(undefined);
+                setDialogOpen(true);
+              }}
+            >
               <Plus className="mr-2 h-4 w-4" />
               記録追加
             </Button>
@@ -114,13 +217,13 @@ export default function HarvestPage() {
         }
       />
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <StatCard label="Harvest Weight" value={`${totalWeight.toFixed(1)} kg`} detail="重量換算合計" icon={Scale} tone="leaf" />
-        <StatCard label="Packages" value={`${totalPackages.toLocaleString()} 件`} detail="荷姿数の合計" icon={Package2} tone="earth" />
-        <StatCard label="Grade Mix" value={`${gradeACount} ロット`} detail="上位等級のロット数" icon={Sparkles} tone="sun" />
+      <div className="-mx-4 sm:mx-0 grid gap-3 sm:gap-4 md:grid-cols-3">
+        <StatCard label="Harvest Weight" value={`${totalWeight.toFixed(1)} kg`} detail="重量換算合計" icon={Scale} tone="leaf" className="rounded-none sm:rounded-xl" />
+        <StatCard label="Packages" value={`${totalPackages.toLocaleString()} 件`} detail="荷姿数の合計" icon={Package2} tone="earth" className="rounded-none sm:rounded-xl" />
+        <StatCard label="Grade Mix" value={`${gradeACount} ロット`} detail="上位等級のロット数" icon={Sparkles} tone="sun" className="rounded-none sm:rounded-xl" />
       </div>
 
-      <Card>
+      <Card className="-mx-4 sm:mx-0 rounded-none sm:rounded-xl">
         <CardHeader className="pb-3">
           <CardTitle className="text-base">収穫ロット一覧</CardTitle>
         </CardHeader>
@@ -166,7 +269,7 @@ export default function HarvestPage() {
                   <thead>
                     <tr className="border-b border-border bg-muted/40 text-left text-muted-foreground">
                       <th className="px-3 py-3">収穫日</th>
-                      <th className="px-3 py-3">生産単位</th>
+                      <th className="px-3 py-3">生産エリア</th>
                       <th className="px-3 py-3">作付</th>
                       <th className="px-3 py-3">ロット</th>
                       <th className="px-3 py-3 text-right">数量</th>
@@ -202,15 +305,25 @@ export default function HarvestPage() {
         </CardContent>
       </Card>
 
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) setVoiceFields(undefined); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>収穫ロットを追加</DialogTitle>
+            <div className="flex items-center justify-between gap-3">
+              <DialogTitle>収穫ロットを追加</DialogTitle>
+              <Mic className="h-4 w-4 text-muted-foreground" />
+            </div>
           </DialogHeader>
-          <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid gap-3 sm:grid-cols-2">
+          <form className="grid gap-3 sm:gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+            <VoiceInputPanel
+              onTranscriptReady={handleVoiceTranscript}
+              parseFields={voiceFields}
+              onClear={() => setVoiceFields(undefined)}
+              guidedSteps={guidedSteps}
+            />
+
+            <div className="grid gap-2 sm:gap-3 sm:grid-cols-2">
               <div className="grid gap-1.5">
-                <Label>生産単位</Label>
+                <Label>生産エリア</Label>
                 <Select onValueChange={(value) => form.setValue("productionUnitId", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="選択してください" />
@@ -250,7 +363,7 @@ export default function HarvestPage() {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-2 sm:gap-3 sm:grid-cols-2">
               <div className="grid gap-1.5">
                 <Label htmlFor="lotCode">ロットコード</Label>
                 <Input id="lotCode" placeholder="ST-A-0424-AM" {...form.register("lotCode")} />
@@ -261,7 +374,7 @@ export default function HarvestPage() {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 sm:grid-cols-4">
               <div className="grid gap-1.5">
                 <Label htmlFor="quantityValue">数量</Label>
                 <Input id="quantityValue" type="number" step="0.1" {...form.register("quantityValue")} />
@@ -280,7 +393,7 @@ export default function HarvestPage() {
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               <div className="grid gap-1.5">
                 <Label htmlFor="packageCount">荷姿数</Label>
                 <Input id="packageCount" type="number" {...form.register("packageCount")} />
@@ -297,7 +410,7 @@ export default function HarvestPage() {
 
             <div className="grid gap-1.5">
               <Label htmlFor="notes">備考</Label>
-              <Textarea id="notes" rows={3} {...form.register("notes")} />
+              <Textarea id="notes" rows={2} {...form.register("notes")} />
             </div>
 
             <DialogFooter>

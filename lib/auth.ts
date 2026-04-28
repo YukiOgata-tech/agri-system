@@ -31,6 +31,14 @@ export async function signInWithGoogle() {
   return credential.user;
 }
 
+export async function updateAuthDisplayName(displayName: string) {
+  if (!auth.currentUser) {
+    throw new Error("ログイン中のユーザーが見つかりません");
+  }
+  await updateProfile(auth.currentUser, { displayName });
+  return auth.currentUser;
+}
+
 export async function logOut() {
   await signOut(auth);
 }

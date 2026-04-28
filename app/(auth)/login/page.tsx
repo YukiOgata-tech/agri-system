@@ -36,7 +36,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await signIn(email, password);
-      router.replace("/dashboard");
+      router.replace("/");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "ログインに失敗しました";
       toast.error(message.includes("user-not-found") || message.includes("invalid-credential")
@@ -51,7 +51,7 @@ export default function LoginPage() {
     setGoogleLoading(true);
     try {
       await signInWithGoogle();
-      router.replace("/dashboard");
+      router.replace("/");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Googleログインに失敗しました";
       if (!message.includes("popup-closed-by-user")) {

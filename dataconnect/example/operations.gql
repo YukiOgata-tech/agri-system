@@ -5,6 +5,43 @@
 
 # ==================== Queries ====================
 
+query GetUserByAuthUid($authUid: String!) @auth(level: USER) {
+  users(where: { authUid: { eq: $authUid } }) {
+    id
+    authUid
+    email
+    displayName
+  }
+}
+
+query GetOrganizationMembersByAuthUid($authUid: String!) @auth(level: USER) {
+  organizationMembers(where: { user: { authUid: { eq: $authUid } } }) {
+    id
+    role
+    organization {
+      id
+      name
+    }
+  }
+}
+
+query GetOrganizationsByOwner($ownerId: UUID!) @auth(level: USER) {
+  organizations(where: { owner: { id: { eq: $ownerId } } }) {
+    id
+    name
+  }
+}
+
+query GetOrganizationById($organizationId: UUID!) @auth(level: USER) {
+  organizations(where: { id: { eq: $organizationId } }) {
+    id
+    name
+    prefecture
+    city
+    status
+  }
+}
+
 query GetFarmsByOrg($organizationId: UUID!) @auth(level: USER) {
   farms(where: { organization: { id: { eq: $organizationId } } }, orderBy: [{ createdAt: ASC }]) {
     id
@@ -31,6 +68,27 @@ query GetProductionUnitsByFarm($farmId: UUID!) @auth(level: USER) {
   }
 }
 
+query GetProductionUnitsByOrganization($organizationId: UUID!) @auth(level: USER) {
+  productionUnits(
+    where: { farm: { organization: { id: { eq: $organizationId } } } }
+    orderBy: [{ name: ASC }]
+  ) {
+    id
+    name
+    code
+    unitType
+    areaM2
+    isActive
+    coveringMaterial
+    irrigationSystemType
+    bedCount
+    rowCount
+    notes
+    parentUnit { id }
+    farm { id name }
+  }
+}
+
 query GetOrganizationCropSettings($organizationId: UUID!) @auth(level: USER) {
   organizationCropSettings(
     where: { organization: { id: { eq: $organizationId } }, isEnabled: { eq: true } }
@@ -48,6 +106,27 @@ query GetOrganizationCropSettings($organizationId: UUID!) @auth(level: USER) {
       cultivationCategory
       defaultYieldUnit
       defaultShipmentUnit
+    }
+  }
+}
+
+query GetOrganizationMembersByOrganization($organizationId: UUID!) @auth(level: USER) {
+  organizationMembers(
+    where: { organization: { id: { eq: $organizationId } } }
+    orderBy: [{ createdAt: ASC }]
+  ) {
+    id
+    role
+    invitationStatus
+    organization {
+      id
+      name
+    }
+    user {
+      id
+      authUid
+      email
+      displayName
     }
   }
 }
@@ -91,6 +170,32 @@ query GetCultivationCyclesByCrop($organizationId: UUID!, $cropTypeId: UUID!) @au
   }
 }
 
+query GetCultivationCyclesByOrganization($organizationId: UUID!) @auth(level: USER) {
+  cultivationCycles(
+    where: { productionUnit: { farm: { organization: { id: { eq: $organizationId } } } } }
+    orderBy: [{ startDate: DESC }]
+  ) {
+    id
+    cycleName
+    startDate
+    endDate
+    plantingDate
+    expectedHarvestStartDate
+    expectedHarvestEndDate
+    status
+    primaryRecordUnit
+    secondaryRecordUnit
+    shipmentUnit
+    plantedCount
+    plantedAreaM2
+    sourceBatchCode
+    notes
+    productionUnit { id }
+    cropType { id code nameJa }
+    cropVariety { id name }
+  }
+}
+
 query GetHarvestRecords($productionUnitId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
   harvestRecords(
     where: {
@@ -115,6 +220,35 @@ query GetHarvestRecords($productionUnitId: UUID!, $from: Date!, $to: Date!) @aut
       id
       cycleName
       cropType { id nameJa }
+    }
+  }
+}
+
+query GetHarvestRecordsByOrganization($organizationId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
+  harvestRecords(
+    where: {
+      productionUnit: { farm: { organization: { id: { eq: $organizationId } } } }
+      harvestDate: { ge: $from, le: $to }
+    }
+    orderBy: [{ harvestDate: DESC }]
+  ) {
+    id
+    lotCode
+    harvestDate
+    quantityValue
+    quantityUnit
+    normalizedWeightKg
+    packageCount
+    packageUnit
+    qualityGrade
+    wasteWeightKg
+    sourceType
+    notes
+    productionUnit { id }
+    cultivationCycle {
+      id
+      cycleName
+      cropType { id code nameJa }
     }
   }
 }
@@ -146,6 +280,35 @@ query GetShipmentRecords($productionUnitId: UUID!, $from: Date!, $to: Date!) @au
   }
 }
 
+query GetShipmentRecordsByOrganization($organizationId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
+  shipmentRecords(
+    where: {
+      productionUnit: { farm: { organization: { id: { eq: $organizationId } } } }
+      shipmentDate: { ge: $from, le: $to }
+    }
+    orderBy: [{ shipmentDate: DESC }]
+  ) {
+    id
+    shipmentDate
+    shipmentLotCode
+    quantityValue
+    quantityUnit
+    normalizedWeightKg
+    packageCount
+    packageUnit
+    averageUnitPrice
+    revenueAmount
+    destinationName
+    notes
+    productionUnit { id }
+    harvestRecord { id lotCode }
+    cultivationCycle {
+      id
+      cropType { id code nameJa }
+    }
+  }
+}
+
 query GetWorkLogs($productionUnitId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
   workLogs(
     where: {
@@ -167,6 +330,33 @@ query GetWorkLogs($productionUnitId: UUID!, $from: Date!, $to: Date!) @auth(leve
   }
 }
 
+query GetWorkLogsByOrganization($organizationId: UUID!, $from: Date!, $to: Date!) @auth(level: USER) {
+  workLogs(
+    where: {
+      productionUnit: { farm: { organization: { id: { eq: $organizationId } } } }
+      workDate: { ge: $from, le: $to }
+    }
+    orderBy: [{ workDate: DESC }]
+  ) {
+    id
+    workDate
+    workType
+    durationMinutes
+    workerCount
+    status
+    sourceType
+    note
+    productionUnit { id }
+    cultivationCycle {
+      id
+      cropType { id code nameJa }
+    }
+    operator { id displayName }
+    copiedFromWorkLog { id }
+    irrigationLog { id waterVolumeL method timingType }
+  }
+}
+
 query GetWorkMaterialUsages($workLogId: UUID!) @auth(level: USER) {
   workMaterialUsages(where: { workLog: { id: { eq: $workLogId } } }) {
     id
@@ -177,6 +367,31 @@ query GetWorkMaterialUsages($workLogId: UUID!) @auth(level: USER) {
     targetPestOrDisease
     dilutionRatio
     preharvestIntervalDays
+    materialLot {
+      id
+      lotCode
+      material {
+        id
+        name
+        materialType
+      }
+    }
+  }
+}
+
+query GetWorkMaterialUsagesByOrganization($organizationId: UUID!) @auth(level: USER) {
+  workMaterialUsages(
+    where: { workLog: { productionUnit: { farm: { organization: { id: { eq: $organizationId } } } } } }
+  ) {
+    id
+    usageQuantityValue
+    usageQuantityUnit
+    normalizedUsageKg
+    normalizedUsageL
+    targetPestOrDisease
+    dilutionRatio
+    preharvestIntervalDays
+    workLog { id }
     materialLot {
       id
       lotCode
@@ -212,6 +427,30 @@ query GetEnvironmentLogs($productionUnitId: UUID!, $from: Timestamp!, $to: Times
   }
 }
 
+query GetEnvironmentLogsByOrganization($organizationId: UUID!, $from: Timestamp!, $to: Timestamp!) @auth(level: USER) {
+  productionUnitEnvironmentLogs(
+    where: {
+      productionUnit: { farm: { organization: { id: { eq: $organizationId } } } }
+      observedAt: { ge: $from, le: $to }
+    }
+    orderBy: [{ observedAt: DESC }]
+  ) {
+    id
+    observedAt
+    temperatureC
+    humidityPct
+    co2Ppm
+    soilTemperatureC
+    soilMoisturePct
+    ecDsM
+    ph
+    lightLux
+    sourceType
+    notes
+    productionUnit { id }
+  }
+}
+
 query GetDiseasePestIncidents($productionUnitId: UUID!) @auth(level: USER) {
   diseasePestIncidents(
     where: { productionUnit: { id: { eq: $productionUnitId } } }
@@ -227,6 +466,29 @@ query GetDiseasePestIncidents($productionUnitId: UUID!) @auth(level: USER) {
     resolvedOn
     sourceType
     note
+  }
+}
+
+query GetDiseasePestIncidentsByOrganization($organizationId: UUID!) @auth(level: USER) {
+  diseasePestIncidents(
+    where: { productionUnit: { farm: { organization: { id: { eq: $organizationId } } } } }
+    orderBy: [{ occurredOn: DESC }]
+  ) {
+    id
+    occurredOn
+    category
+    name
+    severityLevel
+    affectedAreaRatio
+    actionTaken
+    resolvedOn
+    sourceType
+    note
+    productionUnit { id }
+    cultivationCycle {
+      id
+      cropType { id code nameJa }
+    }
   }
 }
 
@@ -265,6 +527,29 @@ query GetMaterialLots($organizationId: UUID!, $materialId: UUID) @auth(level: US
   }
 }
 
+query GetMaterialLotsByOrganization($organizationId: UUID!) @auth(level: USER) {
+  materialLots(
+    where: { organization: { id: { eq: $organizationId } } }
+    orderBy: [{ purchasedOn: DESC }]
+  ) {
+    id
+    lotCode
+    supplierName
+    purchasedOn
+    expiresOn
+    receivedQuantityValue
+    receivedQuantityUnit
+    remainingQuantityValue
+    remainingQuantityUnit
+    status
+    material {
+      id
+      name
+      materialType
+    }
+  }
+}
+
 query GetCropTypes @auth(level: PUBLIC) {
   cropTypes(orderBy: [{ nameJa: ASC }]) {
     id
@@ -288,6 +573,117 @@ query GetCropVarieties($cropTypeId: UUID!) @auth(level: PUBLIC) {
 
 # ==================== Mutations ====================
 
+mutation CreateUser(
+  $authUid: String!
+  $email: String!
+  $displayName: String
+  $authProvider: String
+) @auth(level: USER) {
+  user_insert(data: {
+    authUid: $authUid
+    email: $email
+    displayName: $displayName
+    authProvider: $authProvider
+  })
+}
+
+mutation UpdateUserProfile(
+  $id: UUID!
+  $email: String!
+  $displayName: String
+  $lastLoginAt: Timestamp
+) @auth(level: USER) {
+  user_update(id: $id, data: {
+    email: $email
+    displayName: $displayName
+    lastLoginAt: $lastLoginAt
+  })
+}
+
+mutation CreateOrganization(
+  $ownerId: UUID!
+  $name: String!
+  $prefecture: String
+  $city: String
+) @auth(level: USER) {
+  organization_insert(data: {
+    ownerId: $ownerId
+    name: $name
+    prefecture: $prefecture
+    city: $city
+    status: "active"
+  })
+}
+
+mutation CreateOrganizationMember(
+  $organizationId: UUID!
+  $userId: UUID!
+  $role: String!
+) @auth(level: USER) {
+  organizationMember_insert(data: {
+    organizationId: $organizationId
+    userId: $userId
+    role: $role
+    invitationStatus: "accepted"
+  })
+}
+
+mutation CreateFarm(
+  $organizationId: UUID!
+  $name: String!
+  $prefecture: String
+  $city: String
+  $notes: String
+) @auth(level: USER) {
+  farm_insert(data: {
+    organizationId: $organizationId
+    name: $name
+    prefecture: $prefecture
+    city: $city
+    notes: $notes
+  })
+}
+
+mutation CreateCropType(
+  $code: String!
+  $nameJa: String!
+  $cultivationCategory: String
+  $defaultYieldUnit: String
+  $defaultShipmentUnit: String
+) @auth(level: USER) {
+  cropType_insert(data: {
+    code: $code
+    nameJa: $nameJa
+    cultivationCategory: $cultivationCategory
+    defaultYieldUnit: $defaultYieldUnit
+    defaultShipmentUnit: $defaultShipmentUnit
+  })
+}
+
+mutation CreateCropVariety(
+  $cropTypeId: UUID!
+  $name: String!
+) @auth(level: USER) {
+  cropVariety_insert(data: {
+    cropTypeId: $cropTypeId
+    name: $name
+  })
+}
+
+mutation CreateInputMaterial(
+  $organizationId: UUID!
+  $materialType: String!
+  $name: String!
+  $defaultUnit: String
+) @auth(level: USER) {
+  inputMaterial_insert(data: {
+    organizationId: $organizationId
+    materialType: $materialType
+    name: $name
+    defaultUnit: $defaultUnit
+  })
+}
+
 mutation CreateProductionUnit(
   $farmId: UUID!
   $parentUnitId: UUID
@@ -307,6 +703,63 @@ mutation CreateProductionUnit(
     notes: $notes
     isActive: true
   })
+}
+
+mutation UpdateProductionUnitActive(
+  $id: UUID!
+  $isActive: Boolean!
+) @auth(level: USER) {
+  productionUnit_update(id: $id, data: {
+    isActive: $isActive
+  })
+}
+
+mutation DeleteWorkMaterialUsage($id: UUID!) @auth(level: USER) {
+  workMaterialUsage_delete(id: $id)
+}
+
+mutation DeleteIrrigationLog($id: UUID!) @auth(level: USER) {
+  irrigationLog_delete(id: $id)
+}
+
+mutation DeleteWorkLog($id: UUID!) @auth(level: USER) {
+  workLog_delete(id: $id)
+}
+
+mutation DeleteEnvironmentLog($id: UUID!) @auth(level: USER) {
+  productionUnitEnvironmentLog_delete(id: $id)
+}
+
+mutation DeleteDiseasePestIncident($id: UUID!) @auth(level: USER) {
+  diseasePestIncident_delete(id: $id)
+}
+
+mutation DeleteShipmentRecord($id: UUID!) @auth(level: USER) {
+  shipmentRecord_delete(id: $id)
+}
+
+mutation DeleteHarvestRecord($id: UUID!) @auth(level: USER) {
+  harvestRecord_delete(id: $id)
+}
+
+mutation DeleteCultivationCycle($id: UUID!) @auth(level: USER) {
+  cultivationCycle_delete(id: $id)
+}
+
+mutation DeleteProductionUnit($id: UUID!) @auth(level: USER) {
+  productionUnit_delete(id: $id)
+}
+
+mutation DeleteMaterialLot($id: UUID!) @auth(level: USER) {
+  materialLot_delete(id: $id)
+}
+
+mutation DeleteInputMaterial($id: UUID!) @auth(level: USER) {
+  inputMaterial_delete(id: $id)
+}
+
+mutation DeleteOrganizationCropSetting($id: UUID!) @auth(level: USER) {
+  organizationCropSetting_delete(id: $id)
 }
 
 mutation CreateOrganizationCropSetting(
@@ -435,6 +888,7 @@ mutation CreateWorkLog(
   $workerCount: Int
   $operatorUserId: UUID
   $note: String
+  $copiedFromWorkLogId: UUID
 ) @auth(level: USER) {
   workLog_insert(data: {
     productionUnitId: $productionUnitId
@@ -445,6 +899,7 @@ mutation CreateWorkLog(
     workerCount: $workerCount
     operatorUserId: $operatorUserId
     note: $note
+    copiedFromWorkLogId: $copiedFromWorkLogId
     status: "completed"
     sourceType: "manual"
   })
@@ -574,5 +1029,14 @@ mutation CreateDiseasePestIncident(
     actionTaken: $actionTaken
     note: $note
     sourceType: "manual"
+  })
+}
+
+mutation ResolveDiseasePestIncident(
+  $id: UUID!
+  $resolvedOn: Date!
+) @auth(level: USER) {
+  diseasePestIncident_update(id: $id, data: {
+    resolvedOn: $resolvedOn
   })
 }

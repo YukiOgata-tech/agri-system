@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { AppSessionProvider } from "@/components/providers/app-session-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { Toaster } from "sonner";
 
@@ -15,8 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col">
         <QueryProvider>
           <AuthProvider>
-            {children}
-            <Toaster richColors position="top-right" />
+            <AppSessionProvider>
+              {children}
+              <Toaster richColors position="top-right" />
+            </AppSessionProvider>
           </AuthProvider>
         </QueryProvider>
       </body>

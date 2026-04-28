@@ -1,0 +1,318 @@
+extend type AnalysisInput {
+  """
+  ✨ Implicit foreign key field based on `AnalysisInput`.`analysisRun`. It must match the value of `AnalysisRun`.`id`. See `@ref` for how to customize it.
+  """
+  analysisRunId: UUID! @fdc_generated(from: "AnalysisInput.analysisRun", purpose: IMPLICIT_REF_FIELD)
+}
+extend type AnalysisOutput {
+  """
+  ✨ Implicit foreign key field based on `AnalysisOutput`.`analysisRun`. It must match the value of `AnalysisRun`.`id`. See `@ref` for how to customize it.
+  """
+  analysisRunId: UUID! @fdc_generated(from: "AnalysisOutput.analysisRun", purpose: IMPLICIT_REF_FIELD)
+}
+extend type AnalysisRun {
+  """
+  ✨ Implicit foreign key field based on `AnalysisRun`.`cropType`. It must match the value of `CropType`.`id`. See `@ref` for how to customize it.
+  """
+  cropTypeId: UUID @fdc_generated(from: "AnalysisRun.cropType", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AnalysisRun`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "AnalysisRun.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AnalysisRun`.`farm`. It must match the value of `Farm`.`id`. See `@ref` for how to customize it.
+  """
+  farmId: UUID @fdc_generated(from: "AnalysisRun.farm", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AnalysisRun`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "AnalysisRun.organization", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `AnalysisRun`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID @fdc_generated(from: "AnalysisRun.productionUnit", purpose: IMPLICIT_REF_FIELD)
+}
+extend type CropStageEvent {
+  """
+  ✨ Implicit foreign key field based on `CropStageEvent`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID! @fdc_generated(from: "CropStageEvent.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `CropStageEvent`.`recordedBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recordedById: UUID @fdc_generated(from: "CropStageEvent.recordedBy", purpose: IMPLICIT_REF_FIELD)
+}
+extend type CropVariety {
+  """
+  ✨ Implicit foreign key field based on `CropVariety`.`cropType`. It must match the value of `CropType`.`id`. See `@ref` for how to customize it.
+  """
+  cropTypeId: UUID! @fdc_generated(from: "CropVariety.cropType", purpose: IMPLICIT_REF_FIELD)
+}
+extend type CultivationCycle {
+  """
+  ✨ Implicit foreign key field based on `CultivationCycle`.`cropType`. It must match the value of `CropType`.`id`. See `@ref` for how to customize it.
+  """
+  cropTypeId: UUID! @fdc_generated(from: "CultivationCycle.cropType", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `CultivationCycle`.`cropVariety`. It must match the value of `CropVariety`.`id`. See `@ref` for how to customize it.
+  """
+  cropVarietyId: UUID @fdc_generated(from: "CultivationCycle.cropVariety", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `CultivationCycle`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "CultivationCycle.productionUnit", purpose: IMPLICIT_REF_FIELD)
+}
+extend type DailyProductionReport {
+  """
+  ✨ Implicit foreign key field based on `DailyProductionReport`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "DailyProductionReport.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `DailyProductionReport`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "DailyProductionReport.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `DailyProductionReport`.`worker`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  workerId: UUID @fdc_generated(from: "DailyProductionReport.worker", purpose: IMPLICIT_REF_FIELD)
+}
+extend type DiseasePestIncident {
+  """
+  ✨ Implicit foreign key field based on `DiseasePestIncident`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "DiseasePestIncident.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `DiseasePestIncident`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "DiseasePestIncident.productionUnit", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Farm {
+  """
+  ✨ Implicit foreign key field based on `Farm`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "Farm.organization", purpose: IMPLICIT_REF_FIELD)
+}
+extend type GrowthObservation {
+  """
+  ✨ Implicit foreign key field based on `GrowthObservation`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "GrowthObservation.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `GrowthObservation`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "GrowthObservation.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `GrowthObservation`.`recordedBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recordedById: UUID @fdc_generated(from: "GrowthObservation.recordedBy", purpose: IMPLICIT_REF_FIELD)
+}
+extend type HarvestRecord {
+  """
+  ✨ Implicit foreign key field based on `HarvestRecord`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "HarvestRecord.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `HarvestRecord`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "HarvestRecord.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `HarvestRecord`.`recordedBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recordedById: UUID @fdc_generated(from: "HarvestRecord.recordedBy", purpose: IMPLICIT_REF_FIELD)
+}
+extend type InputMaterial {
+  """
+  ✨ Implicit foreign key field based on `InputMaterial`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "InputMaterial.organization", purpose: IMPLICIT_REF_FIELD)
+}
+extend type InventoryTransaction {
+  """
+  ✨ Implicit foreign key field based on `InventoryTransaction`.`materialLot`. It must match the value of `MaterialLot`.`id`. See `@ref` for how to customize it.
+  """
+  materialLotId: UUID! @fdc_generated(from: "InventoryTransaction.materialLot", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `InventoryTransaction`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "InventoryTransaction.organization", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `InventoryTransaction`.`relatedWorkLog`. It must match the value of `WorkLog`.`id`. See `@ref` for how to customize it.
+  """
+  relatedWorkLogId: UUID @fdc_generated(from: "InventoryTransaction.relatedWorkLog", purpose: IMPLICIT_REF_FIELD)
+}
+extend type IrrigationLog {
+  """
+  ✨ Implicit foreign key field based on `IrrigationLog`.`workLog`. It must match the value of `WorkLog`.`id`. See `@ref` for how to customize it.
+  """
+  workLogId: UUID! @fdc_generated(from: "IrrigationLog.workLog", purpose: IMPLICIT_REF_FIELD)
+}
+extend type MaterialLot {
+  """
+  ✨ Implicit foreign key field based on `MaterialLot`.`material`. It must match the value of `InputMaterial`.`id`. See `@ref` for how to customize it.
+  """
+  materialId: UUID! @fdc_generated(from: "MaterialLot.material", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `MaterialLot`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "MaterialLot.organization", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ObservationAttachment {
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "ObservationAttachment.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`diseasePestIncident`. It must match the value of `DiseasePestIncident`.`id`. See `@ref` for how to customize it.
+  """
+  diseasePestIncidentId: UUID @fdc_generated(from: "ObservationAttachment.diseasePestIncident", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`environmentLog`. It must match the value of `ProductionUnitEnvironmentLog`.`id`. See `@ref` for how to customize it.
+  """
+  environmentLogId: UUID @fdc_generated(from: "ObservationAttachment.environmentLog", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`harvestRecord`. It must match the value of `HarvestRecord`.`id`. See `@ref` for how to customize it.
+  """
+  harvestRecordId: UUID @fdc_generated(from: "ObservationAttachment.harvestRecord", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "ObservationAttachment.organization", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID @fdc_generated(from: "ObservationAttachment.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`uploadedBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  uploadedById: UUID @fdc_generated(from: "ObservationAttachment.uploadedBy", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ObservationAttachment`.`workLog`. It must match the value of `WorkLog`.`id`. See `@ref` for how to customize it.
+  """
+  workLogId: UUID @fdc_generated(from: "ObservationAttachment.workLog", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Organization {
+  """
+  ✨ Implicit foreign key field based on `Organization`.`owner`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  ownerId: UUID! @fdc_generated(from: "Organization.owner", purpose: IMPLICIT_REF_FIELD)
+}
+extend type OrganizationCropSetting {
+  """
+  ✨ Implicit foreign key field based on `OrganizationCropSetting`.`cropType`. It must match the value of `CropType`.`id`. See `@ref` for how to customize it.
+  """
+  cropTypeId: UUID! @fdc_generated(from: "OrganizationCropSetting.cropType", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `OrganizationCropSetting`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "OrganizationCropSetting.organization", purpose: IMPLICIT_REF_FIELD)
+}
+extend type OrganizationMember {
+  """
+  ✨ Implicit foreign key field based on `OrganizationMember`.`organization`. It must match the value of `Organization`.`id`. See `@ref` for how to customize it.
+  """
+  organizationId: UUID! @fdc_generated(from: "OrganizationMember.organization", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `OrganizationMember`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID! @fdc_generated(from: "OrganizationMember.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ProductionUnit {
+  """
+  ✨ Implicit foreign key field based on `ProductionUnit`.`farm`. It must match the value of `Farm`.`id`. See `@ref` for how to customize it.
+  """
+  farmId: UUID! @fdc_generated(from: "ProductionUnit.farm", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ProductionUnit`.`parentUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  parentUnitId: UUID @fdc_generated(from: "ProductionUnit.parentUnit", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ProductionUnitEnvironmentLog {
+  """
+  ✨ Implicit foreign key field based on `ProductionUnitEnvironmentLog`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "ProductionUnitEnvironmentLog.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ProductionUnitEnvironmentLog`.`recordedBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recordedById: UUID @fdc_generated(from: "ProductionUnitEnvironmentLog.recordedBy", purpose: IMPLICIT_REF_FIELD)
+}
+extend type ShipmentRecord {
+  """
+  ✨ Implicit foreign key field based on `ShipmentRecord`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "ShipmentRecord.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ShipmentRecord`.`harvestRecord`. It must match the value of `HarvestRecord`.`id`. See `@ref` for how to customize it.
+  """
+  harvestRecordId: UUID @fdc_generated(from: "ShipmentRecord.harvestRecord", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ShipmentRecord`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "ShipmentRecord.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `ShipmentRecord`.`recordedBy`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  recordedById: UUID @fdc_generated(from: "ShipmentRecord.recordedBy", purpose: IMPLICIT_REF_FIELD)
+}
+extend type UserPreference {
+  """
+  ✨ Implicit foreign key field based on `UserPreference`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID! @fdc_generated(from: "UserPreference.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WeatherDaily {
+  """
+  ✨ Implicit foreign key field based on `WeatherDaily`.`weatherLocation`. It must match the value of `WeatherLocation`.`id`. See `@ref` for how to customize it.
+  """
+  weatherLocationId: UUID! @fdc_generated(from: "WeatherDaily.weatherLocation", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WeatherForecast {
+  """
+  ✨ Implicit foreign key field based on `WeatherForecast`.`weatherLocation`. It must match the value of `WeatherLocation`.`id`. See `@ref` for how to customize it.
+  """
+  weatherLocationId: UUID! @fdc_generated(from: "WeatherForecast.weatherLocation", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WeatherLocation {
+  """
+  ✨ Implicit foreign key field based on `WeatherLocation`.`farm`. It must match the value of `Farm`.`id`. See `@ref` for how to customize it.
+  """
+  farmId: UUID! @fdc_generated(from: "WeatherLocation.farm", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WorkLog {
+  """
+  ✨ Implicit foreign key field based on `WorkLog`.`copiedFromWorkLog`. It must match the value of `WorkLog`.`id`. See `@ref` for how to customize it.
+  """
+  copiedFromWorkLogId: UUID @fdc_generated(from: "WorkLog.copiedFromWorkLog", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `WorkLog`.`cultivationCycle`. It must match the value of `CultivationCycle`.`id`. See `@ref` for how to customize it.
+  """
+  cultivationCycleId: UUID @fdc_generated(from: "WorkLog.cultivationCycle", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `WorkLog`.`operator`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  operatorId: UUID @fdc_generated(from: "WorkLog.operator", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `WorkLog`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "WorkLog.productionUnit", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WorkLogTarget {
+  """
+  ✨ Implicit foreign key field based on `WorkLogTarget`.`productionUnit`. It must match the value of `ProductionUnit`.`id`. See `@ref` for how to customize it.
+  """
+  productionUnitId: UUID! @fdc_generated(from: "WorkLogTarget.productionUnit", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `WorkLogTarget`.`workLog`. It must match the value of `WorkLog`.`id`. See `@ref` for how to customize it.
+  """
+  workLogId: UUID! @fdc_generated(from: "WorkLogTarget.workLog", purpose: IMPLICIT_REF_FIELD)
+}
+extend type WorkMaterialUsage {
+  """
+  ✨ Implicit foreign key field based on `WorkMaterialUsage`.`materialLot`. It must match the value of `MaterialLot`.`id`. See `@ref` for how to customize it.
+  """
+  materialLotId: UUID! @fdc_generated(from: "WorkMaterialUsage.materialLot", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `WorkMaterialUsage`.`workLog`. It must match the value of `WorkLog`.`id`. See `@ref` for how to customize it.
+  """
+  workLogId: UUID! @fdc_generated(from: "WorkMaterialUsage.workLog", purpose: IMPLICIT_REF_FIELD)
+}

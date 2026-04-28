@@ -5,17 +5,23 @@ import { useRouter } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileHeader } from "@/components/layout/mobile-header";
 import { AgriAppProvider } from "@/components/providers/agri-app-provider";
-import { useAuth } from "@/components/providers/auth-provider";
+import { useAppSession } from "@/components/providers/app-session-provider";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const { user, loading } = useAuth();
+  const { authUser, loading, needsOnboarding } = useAppSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.replace("/login");
+    if (!loading) {
+      if (!authUser) {
+        router.replace("/login");
+        return;
+      }
+      if (needsOnboarding) {
+        router.replace("/onboarding");
+      }
     }
-  }, [user, loading, router]);
+  }, [authUser, loading, needsOnboarding, router]);
 
   if (loading) {
     return (
@@ -25,7 +31,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!user) return null;
+  if (!authUser || needsOnboarding) return null;
 
   return (
     <AgriAppProvider>

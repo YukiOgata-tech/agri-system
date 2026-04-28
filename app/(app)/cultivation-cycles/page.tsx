@@ -17,11 +17,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { useAgriApp } from "@/components/providers/agri-app-provider";
 import { formatDate } from "@/lib/utils";
-import { getCropLabel } from "@/lib/agri-mock-data";
 
 const cycleSchema = z.object({
-  productionUnitId: z.string().min(1, "生産単位を選択してください"),
-  cropTypeId: z.enum(["strawberry", "tomato", "komatsuna"]),
+  productionUnitId: z.string().min(1, "生産エリアを選択してください"),
+  cropTypeId: z.string().min(1, "作物を選択してください"),
   varietyName: z.string().min(1, "品種名を入力してください"),
   cycleName: z.string().min(1, "作付名を入力してください"),
   startDate: z.string().min(1, "開始日を入力してください"),
@@ -46,6 +45,7 @@ export default function CultivationCyclesPage() {
     productionUnits,
     cultivationCycles,
     addCultivationCycle,
+    getCropLabel,
     matchesSelectedCrop,
     getUnitById,
   } = useAgriApp();
@@ -53,7 +53,7 @@ export default function CultivationCyclesPage() {
   const form = useForm<CycleForm>({
     resolver: zodResolver(cycleSchema) as Resolver<CycleForm>,
     defaultValues: {
-      cropTypeId: selectedCropId === "all" ? "strawberry" : selectedCropId,
+      cropTypeId: selectedCropId === "all" ? crops[0]?.id ?? "" : selectedCropId,
       primaryRecordUnit: "kg",
       shipmentUnit: "箱",
     },
@@ -61,15 +61,23 @@ export default function CultivationCyclesPage() {
 
   const filteredCycles = cultivationCycles.filter((cycle) => matchesSelectedCrop(cycle.cropTypeId));
 
-  const onSubmit = (values: CycleForm) => {
-    addCultivationCycle(values);
-    toast.success("作付サイクルを追加しました");
-    setDialogOpen(false);
-    form.reset({
-      cropTypeId: values.cropTypeId,
-      primaryRecordUnit: values.primaryRecordUnit,
-      shipmentUnit: values.shipmentUnit,
-    });
+  const onSubmit = async (values: CycleForm) => {
+    try {
+      await addCultivationCycle(values);
+      toast.success("作付サイクルを追加しました");
+      setDialogOpen(false);
+      form.reset({
+        cropTypeId: values.cropTypeId,
+        primaryRecordUnit: values.primaryRecordUnit,
+        shipmentUnit: values.shipmentUnit,
+      });
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "作付サイクルの追加に失敗しました"
+      );
+    }
   };
 
   return (
@@ -77,7 +85,7 @@ export default function CultivationCyclesPage() {
       <PageIntro
         eyebrow="Cultivation"
         title="作付設定"
-        description="生産単位と作物を結ぶ中心画面です。ここで記録単位、出荷単位、定植母数を決め、後続の収穫・出荷・分析の既定値に使います。"
+        description="生産エリアと作物を結ぶ中心画面です。ここで記録単位、出荷単位、定植母数を決め、後続の収穫・出荷・分析の既定値に使います。"
         scopeLabel={getCropLabel(selectedCropId)}
         actions={
           <Button onClick={() => setDialogOpen(true)}>
@@ -161,7 +169,7 @@ export default function CultivationCyclesPage() {
           <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="grid gap-1.5">
-                <Label>生産単位</Label>
+                <Label>生産エリア</Label>
                 <Select onValueChange={(value) => form.setValue("productionUnitId", value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="選択してください" />
